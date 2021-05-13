@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -18,7 +19,8 @@ public class BankAccount {
 	private Integer bankId;
 	@Column(name = "card_number", unique = true)
 	private Integer cardNumber;
-	@OneToOne(mappedBy = "bankAccount")
+	@OneToOne()
+	@JoinColumn(name="cust_id",referencedColumnName = "cust_id")
 	private Customer customer;
 	@Column(name = "card_holder")
 	private String cardHolderName;

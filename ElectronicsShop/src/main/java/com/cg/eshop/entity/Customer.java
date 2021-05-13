@@ -37,9 +37,6 @@ public class Customer {
 	private String state;
 	@Column(name="country")
 	private String country;
-	@OneToOne
-	@JoinColumn(name="bank_acc",referencedColumnName = "card_number")
-	private BankAccount bankAccount;
 
 
 	public Integer getCustomerId() {
@@ -114,13 +111,6 @@ public class Customer {
 		this.country = country;
 	}
 
-	public BankAccount getBankAccount() {
-		return bankAccount;
-	}
-
-	public void setBankAccount(BankAccount bankAccount) {
-		this.bankAccount = bankAccount;
-	}
 
 	
 
