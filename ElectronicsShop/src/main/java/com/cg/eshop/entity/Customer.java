@@ -20,7 +20,7 @@ public class Customer {
 	@Id
 	@Column(name = "cust_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String customerId;
+	private Integer customerId;
 	@Column(name = "cust_name")
 	private String customerName;
 	@Column(name = "cust_email")
@@ -48,11 +48,11 @@ public class Customer {
 	@JoinColumn(name = "basket_id",referencedColumnName = "basket_id")
 	private Basket basket;
 
-	public String getCustomerId() {
+	public Integer getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(String customerId) {
+	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
 	}
 

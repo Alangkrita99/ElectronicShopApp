@@ -22,18 +22,22 @@ public class Basket {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="basket_id")
 	private String basketId;
+	
+	@Column(name="productCount")
+	private Integer productCount;
+	
+	@Column(name="total")
+	private Double Total;
+	
+	@Column(name="grand_total")
+	private Double grandTotal;
+	
+	
+	
 	@OneToOne(mappedBy = "basket")
 	private Customer customer;
-	/*@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="electronic_products",
-				joinColumns = @JoinColumn(name="basket_id"),
-				inverseJoinColumns = @JoinColumn(name="product_id"))
-	private Map<ElectronicProduct, Integer> productList;
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="electronic_products",
-			joinColumns = @JoinColumn(name="basket_id"),
-			inverseJoinColumns = @JoinColumn(name="product_id"))*/
-	@OneToMany(mappedBy = "basket")
+	
+	@OneToMany
 	private List<ElectronicProductDetails> productList;
 
 	public String getBasketId() {
