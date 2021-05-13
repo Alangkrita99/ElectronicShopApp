@@ -11,20 +11,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "cg_ordered_products")
-public class OrderedProducts {
+@Table(name = "cg_ordered_product_details")
+public class OrderedProductDetails {
 	@Id
 	@Column(name = "prod_order_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer prodOrderId;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "product_order", referencedColumnName = "order_id")
-	private ElectronicProductOrder prodOrder;
+	@JoinColumn(name = "order_id", referencedColumnName = "order_id")
+	private OrderProducts prodOrders;
 	
-	@Column(name = "quantity")
-	private Integer qty;
-
 	public Integer getProdOrderId() {
 		return prodOrderId;
 	}
@@ -32,18 +29,9 @@ public class OrderedProducts {
 	public void setProdOrderId(Integer prodOrderId) {
 		this.prodOrderId = prodOrderId;
 	}
+	
 
-	public Integer getQty() {
-		return qty;
-	}
 
-	public void setQty(Integer qty) {
-		this.qty = qty;
-	}
 
-	@Override
-	public String toString() {
-		return "OrderedProducts [prodOrderId=" + prodOrderId + ", prodOrder=" + prodOrder + ", qty=" + qty + "]";
-	}
 
 }

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -23,22 +24,12 @@ public class Basket {
 	@Column(name="basket_id")
 	private String basketId;
 	
-	@Column(name="productCount")
-	private Integer productCount;
-	
-	@Column(name="total")
-	private Double Total;
-	
-	@Column(name="grand_total")
-	private Double grandTotal;
-	
-	
-	
-	@OneToOne(mappedBy = "basket")
+	@ManyToOne()
+	@JoinColumn(name = "customer_id",referencedColumnName = "cust_id")
 	private Customer customer;
-	
-	@OneToMany
-	private List<ElectronicProductDetails> productList;
+	@ManyToOne()
+	@JoinColumn(name="product_id",referencedColumnName = "product_id")
+	private ElectronicProductDetails productDetails;
 
 	public String getBasketId() {
 		return basketId;

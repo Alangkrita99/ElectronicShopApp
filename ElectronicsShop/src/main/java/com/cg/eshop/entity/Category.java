@@ -1,6 +1,7 @@
 package com.cg.eshop.entity;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +22,18 @@ public class Category {
 	private String categoryName;
 
 	@OneToMany(mappedBy = "category")
-	private List<ElectronicProductDetails> epd;
+	private Set<ElectronicProductDetails> electronicProducts;
+	
+
+
+
+	public Set<ElectronicProductDetails> getElectronicProducts() {
+		return electronicProducts;
+	}
+
+	public void setElectronicProducts(Set<ElectronicProductDetails> electronicProducts) {
+		this.electronicProducts = electronicProducts;
+	}
 
 	@Override
 	public String toString() {

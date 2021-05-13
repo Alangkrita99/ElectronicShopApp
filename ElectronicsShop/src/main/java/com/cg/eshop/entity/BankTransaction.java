@@ -25,6 +25,7 @@ public class BankTransaction {
 	private LocalDate txnDate;
 	@Column(name = "txn_amount")
 	private Double txnAmount;
+	
 
 	public Integer getBankTxns() {
 		return bankTxns;

@@ -28,8 +28,7 @@ public class BankAccount {
 	private Integer cvv;
 	@Column(name = "amount")
 	private Double amount;
-	@OneToMany(mappedBy = "bankAcc")
-	private List<BankTransaction> bankTxns;
+
 
 	public Integer getBankId() {
 		return bankId;
@@ -85,21 +84,6 @@ public class BankAccount {
 
 	public void setAmount(Double amount) {
 		this.amount = amount;
-	}
-
-	public List<BankTransaction> getBankTxns() {
-		return bankTxns;
-	}
-
-	public void setBankTxns(List<BankTransaction> bankTxns) {
-		this.bankTxns = bankTxns;
-	}
-
-	@Override
-	public String toString() {
-		return "BankAccount [bankId=" + bankId + ", cardNumber=" + cardNumber + ", customer=" + customer
-				+ ", cardHolderName=" + cardHolderName + ", expiryDt=" + expiryDt + ", cvv=" + cvv + ", amount="
-				+ amount + ", bankTxns=" + bankTxns + "]";
 	}
 	
 
