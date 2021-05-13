@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
-@Table(name="cg_elecProd_order")
+@Table(name="cg_elec_prod_order")
 public class ElectronicProductOrder {
 	
 	@Id
