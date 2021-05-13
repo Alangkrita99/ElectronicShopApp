@@ -2,6 +2,7 @@ package com.cg.eshop.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,12 +14,14 @@ import javax.persistence.Table;
 @Table(name = "cg_ordered_products")
 public class OrderedProducts {
 	@Id
-	@Column(name = "order_id")
+	@Column(name = "prod_order_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer prodOrderId;
-	@ManyToOne
+	
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "product_order", referencedColumnName = "order_id")
 	private ElectronicProductOrder prodOrder;
+	
 	@Column(name = "quantity")
 	private Integer qty;
 
