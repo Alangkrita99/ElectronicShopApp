@@ -24,10 +24,41 @@ public class OrderProducts {
 	@ManyToOne()
 	@JoinColumn(name = "cust_id",referencedColumnName = "cust_id")
 	private Customer customer;
-	@Column
+	@Column(name="total_cost")
 	private Double totalCost;
-	@Column
+	@Column(name="order_status")
 	private String orderStatus;
+	public Integer getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+	public LocalDate getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(LocalDate orderDate) {
+		this.orderDate = orderDate;
+	}
+	public Customer getCustomer() {
+		return customer;
+	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+	public Double getTotalCost() {
+		return totalCost;
+	}
+	public void setTotalCost(Double totalCost) {
+		this.totalCost = totalCost;
+	}
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+	
 	
 
 

@@ -29,9 +29,5 @@ public class OrderedProductDetails {
 	public void setProdOrderId(Integer prodOrderId) {
 		this.prodOrderId = prodOrderId;
 	}
-	
-
-
-
 
 }
