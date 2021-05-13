@@ -37,16 +37,7 @@ public class Customer {
 	private String state;
 	@Column(name="country")
 	private String country;
-	@OneToOne
-	@JoinColumn(name="bank_acc",referencedColumnName = "card_number")
-	private BankAccount bankAccount;
 
-	@OneToMany(mappedBy = "customer")
-	private List<ElectronicProductOrder> elecProds;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "basket_id",referencedColumnName = "basket_id")
-	private Basket basket;
 
 	public Integer getCustomerId() {
 		return customerId;
@@ -120,38 +111,6 @@ public class Customer {
 		this.country = country;
 	}
 
-	public BankAccount getBankAccount() {
-		return bankAccount;
-	}
-
-	public void setBankAccount(BankAccount bankAccount) {
-		this.bankAccount = bankAccount;
-	}
-
-	public List<ElectronicProductOrder> getElecProds() {
-		return elecProds;
-	}
-
-	public void setElecProds(List<ElectronicProductOrder> elecProds) {
-		this.elecProds = elecProds;
-	}
-
-	public Basket getBasket() {
-		return basket;
-	}
-
-	public void setBasket(Basket basket) {
-		this.basket = basket;
-	}
-
-	@Override
-	public String toString() {
-		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", customerEmail="
-				+ customerEmail + ", customerPhone=" + customerPhone + ", addressLine=" + addressLine + ", postalCode="
-				+ postalCode + ", city=" + city + ", state=" + state + ", country=" + country + ", bankAccount="
-				+ bankAccount + ", elecProds=" + elecProds + ", basket=" + basket + "]";
-	}
-	
 
 	
 
