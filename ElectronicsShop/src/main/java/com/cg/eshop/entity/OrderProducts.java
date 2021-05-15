@@ -70,8 +70,7 @@ public class OrderProducts {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return orderId + " " + orderDate + " " + customer + " " + totalCost + " " + orderStatus;
+		return orderId + " " + orderDate +" " + totalCost + " " + orderStatus;
 	}
 
 }
