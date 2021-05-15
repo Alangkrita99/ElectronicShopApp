@@ -59,4 +59,10 @@ public class BankTransaction {
 		this.txnAmount = txnAmount;
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return bankTxns + " " + bankAcc + " " + txnDate + " " + txnAmount;
+	}
+
 }
