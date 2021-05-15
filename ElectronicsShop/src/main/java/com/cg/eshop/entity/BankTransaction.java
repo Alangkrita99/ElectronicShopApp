@@ -59,10 +59,4 @@ public class BankTransaction {
 		this.txnAmount = txnAmount;
 	}
 
-	@Override
-	public String toString() {
-		return "BankTransaction [bankTxns=" + bankTxns + ", bankAcc=" + bankAcc + ", txnDate=" + txnDate
-				+ ", txnAmount=" + txnAmount + "]";
-	}
-
 }

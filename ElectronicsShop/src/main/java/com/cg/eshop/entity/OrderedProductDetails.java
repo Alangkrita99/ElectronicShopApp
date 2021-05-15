@@ -33,4 +33,20 @@ public class OrderedProductDetails {
 		this.prodOrderId = prodOrderId;
 	}
 
+	public OrderProducts getProdOrders() {
+		return prodOrders;
+	}
+
+	public void setProdOrders(OrderProducts prodOrders) {
+		this.prodOrders = prodOrders;
+	}
+
+	public ElectronicProductDetails getElectronicProduct() {
+		return electronicProduct;
+	}
+
+	public void setElectronicProduct(ElectronicProductDetails electronicProduct) {
+		this.electronicProduct = electronicProduct;
+	}
+
 }

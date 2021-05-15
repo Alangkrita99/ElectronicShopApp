@@ -10,22 +10,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="cg_elec_prod_specs")
+@Table(name = "cg_elec_prod_specs")
 public class ElectronicProductSpecs {
-	
+
 	@Id
-	@Column(name="spec_id")
+	@Column(name = "spec_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer specId;
-	
-	@Column(name="spec_name")
+
+	@Column(name = "spec_name")
 	private String specName;
-	
-	@Column(name="spec_value")
+
+	@Column(name = "spec_value")
 	private String specValue;
-	
+
 	@ManyToOne
-	@JoinColumn(name="product_id" , referencedColumnName = "product_id")
+	@JoinColumn(name = "product_id", referencedColumnName = "product_id")
 	private ElectronicProductDetails elecProdDetails;
 
 	public Integer getSpecId() {
@@ -59,6 +59,11 @@ public class ElectronicProductSpecs {
 	public void setElecProdDetails(ElectronicProductDetails elecProdDetails) {
 		this.elecProdDetails = elecProdDetails;
 	}
-	
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return specId + " " + specName + " " + specValue + " " + elecProdDetails;
+	}
 
 }

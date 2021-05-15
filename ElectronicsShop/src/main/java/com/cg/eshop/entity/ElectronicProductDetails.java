@@ -1,7 +1,6 @@
 package com.cg.eshop.entity;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -29,12 +28,12 @@ public class ElectronicProductDetails {
 	private Double price;
 	@Column(name = "image")
 	private String image;
-	@Column (name = "create_date")
+	@Column(name = "create_date")
 	private LocalDate createdate;
 	@ManyToOne
 	@JoinColumn(name = "category_id", referencedColumnName = "category_id")
 	private Category category;
-	
+
 	@OneToMany(mappedBy = "elecProdDetails")
 	private Set<ElectronicProductSpecs> elecProdSpecs;
 
@@ -101,6 +100,11 @@ public class ElectronicProductDetails {
 	public void setElecProdSpecs(Set<ElectronicProductSpecs> elecProdSpecs) {
 		this.elecProdSpecs = elecProdSpecs;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return productID + " " + code + " " + name + " " + price + " " + image + " " + createdate + " " + category + " "
+				+ elecProdSpecs;
+	}
 }

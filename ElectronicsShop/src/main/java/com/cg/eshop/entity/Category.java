@@ -1,6 +1,5 @@
 package com.cg.eshop.entity;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -23,9 +22,6 @@ public class Category {
 
 	@OneToMany(mappedBy = "category")
 	private Set<ElectronicProductDetails> electronicProducts;
-	
-
-
 
 	public Set<ElectronicProductDetails> getElectronicProducts() {
 		return electronicProducts;

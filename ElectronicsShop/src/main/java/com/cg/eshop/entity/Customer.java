@@ -1,16 +1,10 @@
 package com.cg.eshop.entity;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,17 +21,16 @@ public class Customer {
 	private String customerEmail;
 	@Column(name = "cust_phone")
 	private String customerPhone;
-	@Column(name="address")
+	@Column(name = "address")
 	private String addressLine;
-	@Column(name="postal_code")
+	@Column(name = "postal_code")
 	private String postalCode;
-	@Column(name="city")
+	@Column(name = "city")
 	private String city;
-	@Column(name="state")
+	@Column(name = "state")
 	private String state;
-	@Column(name="country")
+	@Column(name = "country")
 	private String country;
-
 
 	public Integer getCustomerId() {
 		return customerId;
@@ -110,8 +103,5 @@ public class Customer {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-
-
-	
 
 }
