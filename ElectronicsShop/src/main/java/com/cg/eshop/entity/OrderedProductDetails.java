@@ -49,4 +49,10 @@ public class OrderedProductDetails {
 		this.electronicProduct = electronicProduct;
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return prodOrderId + " " + prodOrders + " " + electronicProduct;
+	}
+
 }
