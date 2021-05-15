@@ -33,7 +33,6 @@ public class Category {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return categoryId + " " + categoryName;
 	}
 
@@ -52,5 +51,6 @@ public class Category {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+	
 
 }

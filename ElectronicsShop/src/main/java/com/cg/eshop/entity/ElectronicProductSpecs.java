@@ -62,8 +62,7 @@ public class ElectronicProductSpecs {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return specId + " " + specName + " " + specValue + " " + elecProdDetails;
+		return specId + " " + specName + " " + specValue ;
 	}
 
 }

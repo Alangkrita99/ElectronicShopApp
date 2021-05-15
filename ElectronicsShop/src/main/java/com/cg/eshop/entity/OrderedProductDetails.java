@@ -21,6 +21,7 @@ public class OrderedProductDetails {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "order_id", referencedColumnName = "order_id")
 	private OrderProducts prodOrders;
+	
 	@ManyToOne()
 	@JoinColumn(name="product_id",referencedColumnName = "product_id")
 	private ElectronicProductDetails electronicProduct;
@@ -51,8 +52,7 @@ public class OrderedProductDetails {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return prodOrderId + " " + prodOrders + " " + electronicProduct;
+		return prodOrderId +"";
 	}
 
 }

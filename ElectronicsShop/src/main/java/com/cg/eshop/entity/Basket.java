@@ -51,8 +51,7 @@ public class Basket {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return basketId + " " + customer + " " + productDetails;
+		return basketId+"" ;
 	}
 
 }

@@ -38,6 +38,8 @@ public class ElectronicProductDetails {
 	private Set<ElectronicProductSpecs> elecProdSpecs;
 	@Column(name = "prod_stock")
 	private Integer stock;
+	
+	
 	public Integer getProductID() {
 		return productID;
 	}
@@ -104,8 +106,6 @@ public class ElectronicProductDetails {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return productID + " " + code + " " + name + " " + price + " " + image + " " + createdate + " " + category + " "
-				+ elecProdSpecs;
+		return productID + " " + code + " " + name + " " + price + " " + image + " " + createdate ;
 	}
 }

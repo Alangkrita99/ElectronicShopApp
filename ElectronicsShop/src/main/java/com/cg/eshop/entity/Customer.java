@@ -106,7 +106,6 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return customerId + " " + customerEmail + " " + customerPhone + " " + addressLine + " " + postalCode + " "
 				+ city + " " + state + " " + country;
 	}
