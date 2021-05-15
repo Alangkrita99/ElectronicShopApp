@@ -36,7 +36,8 @@ public class ElectronicProductDetails {
 
 	@OneToMany(mappedBy = "elecProdDetails")
 	private Set<ElectronicProductSpecs> elecProdSpecs;
-
+	@Column(name = "prod_stock")
+	private Integer stock;
 	public Integer getProductID() {
 		return productID;
 	}

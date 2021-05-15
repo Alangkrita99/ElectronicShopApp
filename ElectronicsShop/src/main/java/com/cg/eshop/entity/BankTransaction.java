@@ -25,7 +25,17 @@ public class BankTransaction {
 	private LocalDate txnDate;
 	@Column(name = "txn_amount")
 	private Double txnAmount;
-	
+	@ManyToOne
+	@JoinColumn(name = "order_id", referencedColumnName = "order_id")
+	private OrderProducts orderproducts;
+
+	public OrderProducts getOrderproducts() {
+		return orderproducts;
+	}
+
+	public void setOrderproducts(OrderProducts orderproducts) {
+		this.orderproducts = orderproducts;
+	}
 
 	public Integer getBankTxns() {
 		return bankTxns;
@@ -61,8 +71,7 @@ public class BankTransaction {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return bankTxns + " " + bankAcc + " " + txnDate + " " + txnAmount;
+		return bankTxns + " " + txnDate + " " + txnAmount;
 	}
 
 }
