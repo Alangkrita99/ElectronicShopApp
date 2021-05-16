@@ -18,10 +18,10 @@ public class Basket {
 	@Column(name = "basket_id")
 	private Integer basketId;
 
-	@ManyToOne()
+	@ManyToOne
 	@JoinColumn(name = "customer_id", referencedColumnName = "cust_id")
 	private Customer customer;
-	@ManyToOne()
+	@ManyToOne
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id")
 	private ElectronicProductDetails productDetails;
 

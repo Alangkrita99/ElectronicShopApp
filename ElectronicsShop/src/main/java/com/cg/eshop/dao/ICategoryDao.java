@@ -10,8 +10,7 @@ import com.cg.eshop.entity.Category;
 
 @Repository
 public interface ICategoryDao extends JpaRepository<Category, Integer>{
-	@Query("from category")
-	public List<Category> viewAllCategory();
+	
 	
 
 }
