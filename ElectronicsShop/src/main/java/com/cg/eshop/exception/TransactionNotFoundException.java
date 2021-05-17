@@ -1,4 +1,4 @@
-package com.cg.eshop.error;
+package com.cg.eshop.exception;
 
 public class TransactionNotFoundException extends Exception{
 
