@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import com.cg.eshop.entity.Basket;
 
 @Repository
-public interface IBasketDao extends JpaRepository<Basket, Integer> {
-	
-	@Query(value = "from Basket b inner join fetch b.customer c where c. customerId =:cid")
-	public List<Basket> viewItems(@Param("cid") Integer custId);
-	
+public interface ICartDao extends JpaRepository<Basket, Integer>{
+	@Query("from Basket b inner join b.customer c inner join b.productDetails pd where c.customerId = :custId")
+	public List<Basket> getItemsFromBasket(@Param("custId") Integer custId);
+
 	@Query(value = "from Basket b inner join fetch b.productDetails p where p.productID =:pid")
 	public List<Basket> viewItemsByProduct(@Param("pid") Integer prodId);
+
 }

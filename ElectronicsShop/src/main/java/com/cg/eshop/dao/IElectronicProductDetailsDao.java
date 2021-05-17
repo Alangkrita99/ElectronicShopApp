@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.cg.eshop.entity.ElectronicProductDetails;
 
 @Repository
-public interface IProductDetails extends JpaRepository<ElectronicProductDetails, Integer> {
+public interface IElectronicProductDetailsDao extends JpaRepository<ElectronicProductDetails, Integer>{
 
 }

@@ -1,9 +1,8 @@
 package com.cg.eshop.exception;
 
-public class CustomerNotFoundException extends Exception {
-
+public class CustomerNotFoundException extends Exception{
 	public CustomerNotFoundException() {
-		super();
+		super();	
 	}
 
 	public CustomerNotFoundException(String message) {

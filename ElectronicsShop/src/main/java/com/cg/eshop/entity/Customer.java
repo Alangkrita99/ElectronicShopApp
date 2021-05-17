@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "cg_customer")
@@ -36,6 +39,8 @@ public class Customer {
 	@Column(name = "country")
 	private String country;
 	
+	@JsonIgnore
+	@Transient
 	@OneToMany(mappedBy = "customer")
 	private Set<Basket> basket;
 

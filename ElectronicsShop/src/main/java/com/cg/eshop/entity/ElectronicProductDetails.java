@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "cg_electronic_product_details")
 public class ElectronicProductDetails {
@@ -33,7 +35,7 @@ public class ElectronicProductDetails {
 	@ManyToOne
 	@JoinColumn(name = "category_id", referencedColumnName = "category_id")
 	private Category category;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "elecProdDetails")
 	private Set<ElectronicProductSpecs> elecProdSpecs;
 	
@@ -41,6 +43,14 @@ public class ElectronicProductDetails {
 	private Integer stock;
 	
 	
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+
 	public Integer getProductID() {
 		return productID;
 	}
