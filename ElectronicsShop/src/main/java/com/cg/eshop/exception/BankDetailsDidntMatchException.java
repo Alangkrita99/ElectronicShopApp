@@ -1,16 +1,15 @@
 package com.cg.eshop.exception;
 
-public class TransactionNotFoundException extends Exception{
+public class BankDetailsDidntMatchException extends Exception{
 
-	public TransactionNotFoundException() {
+	public BankDetailsDidntMatchException() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public TransactionNotFoundException(String message) {
+	public BankDetailsDidntMatchException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
-	
 
 }

@@ -1,16 +1,15 @@
 package com.cg.eshop.exception;
 
-public class TransactionNotFoundException extends Exception{
+public class NotSufficientBalanceException extends Exception {
 
-	public TransactionNotFoundException() {
+	public NotSufficientBalanceException() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public TransactionNotFoundException(String message) {
+	public NotSufficientBalanceException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
-	
 
 }

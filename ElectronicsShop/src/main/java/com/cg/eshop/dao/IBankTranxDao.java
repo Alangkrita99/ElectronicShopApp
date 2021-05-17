@@ -11,9 +11,9 @@ import com.cg.eshop.entity.BankTransaction;
 
 @Repository
 public interface IBankTranxDao extends JpaRepository<BankTransaction, Integer> {
-	@Query("from cg_bank_txns")
-	public List<BankTransaction> viewAllBankTransaction();
+//	@Query("from cg_bank_txns")
+//	public List<BankTransaction> viewAllBankTransaction();
 	@Query("from BankTransaction bt inner join fetch bt.bankAcc ba where ba.customer = :custID")
-	public List<BankTransaction> viewAllBankTransaction(@Param("custID")String custID);
+	public List<BankTransaction> viewAllBankTransaction(@Param("custID")Integer custID);
 
 }

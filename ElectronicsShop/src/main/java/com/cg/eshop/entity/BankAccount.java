@@ -1,13 +1,17 @@
 package com.cg.eshop.entity;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "cg_bank_account")
@@ -28,6 +32,9 @@ public class BankAccount {
 	private Integer cvv;
 	@Column(name = "amount")
 	private Double amount;
+	@JsonIgnore
+	@OneToMany
+	private Set<BankTransaction> banktranxs;
 
 
 	public Integer getBankId() {
