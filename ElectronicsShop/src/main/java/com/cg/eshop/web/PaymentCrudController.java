@@ -41,7 +41,7 @@ public class PaymentCrudController {
 		return paymentservice.viewPaymentbyCustID(custId);
 	}
 	@GetMapping("viewpayment/{trnxid}")
-	public BankTransaction viewPayment(@PathVariable("trnxID") Integer trnxID) throws TransactionNotFoundException{
+	public BankTransaction viewPayment(@PathVariable("trnxID")Integer trnxID) throws TransactionNotFoundException{
 		return paymentservice.viewPayment(trnxID);
 	}
 }
