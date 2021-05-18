@@ -11,4 +11,7 @@ import com.cg.eshop.entity.Category;
 @Repository
 public interface ICategoryDao extends JpaRepository<Category, Integer> {
 
+
+	
+
 }

@@ -7,5 +7,6 @@ public class ProductConstants {
 	public static final String PRODUCT_ID_REQUIRE = "Product ID required ";
 	public static final String SPEC_NAME_REQUIRE = "Specification Name required ";
 	public static final String SPEC_VALUE_REQUIRE = "Specification Value required ";
+	public static final String SPEC_EDIT_SUCCESSFUL = "Specification Edited Successfully ";
 
 }

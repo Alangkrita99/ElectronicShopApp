@@ -1,3 +1,5 @@
+
+
 package com.cg.eshop.entity;
 
 import javax.persistence.Column;

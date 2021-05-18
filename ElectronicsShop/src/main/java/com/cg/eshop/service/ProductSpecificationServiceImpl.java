@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cg.eshop.dao.IElectronicProductDetailsDao;
 import com.cg.eshop.dao.IElectronicProductSpecsDao;
@@ -44,18 +45,43 @@ public class ProductSpecificationServiceImpl implements IProductSpecificationSer
 	}
 
 	@Override
-	public List<ElectronicProductSpecs> getProductSpecsById(Integer productId)
+	public List<ElectronicProductSpecs> getProductSpecsByProductId(Integer productId)
 			throws ProductNotFoundException, NoSpecsException {
 		Optional<ElectronicProductDetails> optProduct = productDao.findById(productId);
 		if (!optProduct.isPresent())
 			throw new ProductNotFoundException(ProductConstants.PRODUCT_NOT_FOUND);
-		List<ElectronicProductSpecs> lst = productSpecsDao.getSpecifications(productId);
-		
-		logger.info(""+lst.isEmpty());
+		List<ElectronicProductSpecs> lst = productSpecsDao.getSpecificationsByProductId(productId);
+
+		logger.info("" + lst.isEmpty());
 		if (lst.isEmpty())
 			throw new NoSpecsException(ProductConstants.PRODUCT_SPEC_EMPTY);
 		lst.sort((p1, p2) -> p1.getSpecName().compareTo(p2.getSpecName()));
 		return lst;
+	}
+
+	@Override
+	public ElectronicProductSpecs getProductSpecsBySpecId(Integer specId)
+			throws ProductNotFoundException, NoSpecsException {
+
+		Optional<ElectronicProductSpecs> optSpec = productSpecsDao.findById(specId);
+		if (!optSpec.isPresent())
+			throw new NoSpecsException(ProductConstants.PRODUCT_SPEC_EMPTY);
+		return optSpec.get();
+
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public boolean editProductSpecsBySpecId(ElectronicProductSpecsDto electronicProductSpecsDto)
+			throws ProductNotFoundException, NoSpecsException {
+		Optional<ElectronicProductSpecs> optSpec = productSpecsDao.findById(electronicProductSpecsDto.getSpecId());
+		if (!optSpec.isPresent())
+			throw new NoSpecsException(ProductConstants.PRODUCT_SPEC_EMPTY);
+		ElectronicProductSpecs electronicspecs = optSpec.get();
+		electronicspecs.setSpecName(electronicProductSpecsDto.getSpecName());
+		electronicspecs.setSpecValue(electronicProductSpecsDto.getSpecValue());
+		ElectronicProductSpecs electronicspecssave = productSpecsDao.save(electronicspecs);
+		return true;
 	}
 
 }

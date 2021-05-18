@@ -8,6 +8,15 @@ import com.cg.eshop.exception.NoSpecsException;
 import com.cg.eshop.exception.ProductNotFoundException;
 
 public interface IProductSpecificationService {
-public ElectronicProductSpecs addSpecs(ElectronicProductSpecsDto electronicProductSpecsDto) throws ProductNotFoundException;
-public List<ElectronicProductSpecs>getProductSpecsById(Integer productId)throws ProductNotFoundException,NoSpecsException;
+	public ElectronicProductSpecs addSpecs(ElectronicProductSpecsDto electronicProductSpecsDto)
+			throws ProductNotFoundException;
+
+	public List<ElectronicProductSpecs> getProductSpecsByProductId(Integer productId)
+			throws ProductNotFoundException, NoSpecsException;
+
+	public ElectronicProductSpecs getProductSpecsBySpecId(Integer specId)
+			throws ProductNotFoundException, NoSpecsException;
+
+	public boolean editProductSpecsBySpecId(ElectronicProductSpecsDto electronicProductSpecsDto)
+			throws ProductNotFoundException, NoSpecsException;
 }

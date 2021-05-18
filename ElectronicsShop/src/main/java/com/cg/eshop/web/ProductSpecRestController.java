@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,11 +42,27 @@ public class ProductSpecRestController {
 		return new SuccessMessage(ProductConstants.PRODUCT_SPEC_ADDED + obj.getSpecId());
 	}
 
-	@GetMapping("viewspecs/{prod_id}")
-	public List<ElectronicProductSpecs> getProductSpecs(@PathVariable("prod_id") Integer productID)
+	@GetMapping("viewspecsbyproductid/{prod_id}")
+	public List<ElectronicProductSpecs> getProductSpecsByProductId(@PathVariable("prod_id") Integer productID)
 			throws ProductNotFoundException, NoSpecsException {
 		logger.info(productID + "");
-		return specService.getProductSpecsById(productID);
+		return specService.getProductSpecsByProductId(productID);
+	}
+
+	@GetMapping("viewspecsbyspecid/{spec_id}")
+	public ElectronicProductSpecs getProductSpecsBySpecId(@PathVariable("spec_id") Integer specId)
+			throws ProductNotFoundException, NoSpecsException {
+		logger.info(specId + "");
+		return specService.getProductSpecsBySpecId(specId);
+	}
+
+	@PutMapping("editspecs/{spec_id}")
+	public String editProductSpecsBySpecId(@RequestBody ElectronicProductSpecsDto electronicProductSpecsDto,
+			BindingResult br) throws ProductNotFoundException, NoSpecsException, ValidateException {
+		if (br.hasErrors())
+			throw new ValidateException(br.getFieldErrors());
+		specService.editProductSpecsBySpecId(electronicProductSpecsDto);
+		return ProductConstants.SPEC_EDIT_SUCCESSFUL;
 	}
 
 }

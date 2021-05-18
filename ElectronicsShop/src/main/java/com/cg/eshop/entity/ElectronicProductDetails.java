@@ -42,6 +42,14 @@ public class ElectronicProductDetails {
 	private Integer stock;
 	
 	
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+
 	public Integer getProductID() {
 		return productID;
 	}
