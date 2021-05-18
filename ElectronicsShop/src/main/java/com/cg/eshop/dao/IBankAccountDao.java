@@ -12,4 +12,6 @@ import com.cg.eshop.entity.BankAccount;
 public interface IBankAccountDao extends JpaRepository<BankAccount, Integer>{
 	//@Query("from cg_bank_account")
 	//public List<BankAccount> viewAllBankAccount();
+	
+	public BankAccount findByCardNumber(Integer cardNumber);
 }

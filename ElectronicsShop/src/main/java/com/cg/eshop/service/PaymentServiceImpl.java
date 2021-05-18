@@ -44,59 +44,62 @@ public class PaymentServiceImpl implements IPaymentService {
 		if (!optemp.isPresent()) {
 			throw new TransactionNotFoundException("No bank transaction found for id" + trnxID);
 		}
-		System.out.println("error 1");
+		//System.out.println("error 1");
 		return optemp.get();
 	}
 
-
 	@Override
-	public List<BankTransaction> viewPaymentbyCustID(Integer custId) throws TransactionNotFoundException, CustomerNotFoundException {
+	public List<BankTransaction> viewPaymentbyCustID(Integer custId)
+			throws TransactionNotFoundException, CustomerNotFoundException {
 		Optional<Customer> optCust = customerDao.findById(custId);
 		System.out.println("no error1");
-		if(!optCust.isPresent())
+		if (!optCust.isPresent())
 			throw new CustomerNotFoundException(OrderConstants.CUSTOMER_NOT_FOUND);
-		
-		
+
 		List<BankTransaction> lst = btnxdao.viewAllBankTransaction(custId);
 		System.out.println("no error 2");
-		if(lst.isEmpty())
+		if (lst.isEmpty())
 			throw new TransactionNotFoundException(PaymentConstants.BANK_TRANSACTION_NOT_FOUND);
-		//lst.sort((e1,e2)->e1.getTxnDate().compareTo(e2.getTxnDate()));
+		// lst.sort((e1,e2)->e1.getTxnDate().compareTo(e2.getTxnDate()));
 		System.out.println("no error 3");
 		return lst;
 	}
 
-
 	@Override
-	public Integer makePayment(PaymentReqDto payreqdto) throws OrderProductsNotFoundException, BankAccountNotFoundException, BankDetailsDidntMatchException, NotSufficientBalanceException {
-		
+	public Integer makePayment(PaymentReqDto payreqdto) throws OrderProductsNotFoundException,
+			BankAccountNotFoundException, BankDetailsDidntMatchException, NotSufficientBalanceException {
+
 		Optional<OrderProducts> orderpro = orderProductsDao.findById(payreqdto.getOrderId());
 		if (!orderpro.isPresent())
-				throw new OrderProductsNotFoundException(OrderConstants.ORDER_NOT_FOUND);
+			throw new OrderProductsNotFoundException(OrderConstants.ORDER_NOT_FOUND);
 		OrderProducts orderproduct = orderpro.get();
-		Customer cust = orderproduct.getCustomer(); 
-		Optional <BankAccount> bankacc = bankaccdao.findById(cust.getCustomerId());
-		BankAccount bankacc1 = bankacc.get();
-		if (!bankacc.isPresent())
+		Customer cust = orderproduct.getCustomer();
+		BankAccount bankacc = bankaccdao.findByCardNumber(payreqdto.getCardno());
+		if (bankacc == null)
 			throw new BankAccountNotFoundException(PaymentConstants.BANK_ACCOUNT_NOT_FOUND);
-		if (bankacc1.getCvv() != payreqdto.getCvv() || bankacc1.getCardHolderName() != payreqdto.getCardholder() || bankacc1.getExpiryDt() != payreqdto.getExprdate())
+		
+		bankacc.setCustomer(cust);
+
+		if (bankacc.getCvv() != payreqdto.getCvv() || !bankacc.getCardHolderName().equals(payreqdto.getCardholder()) 
+				|| !bankacc.getExpiryDt().equals(payreqdto.getExprdate()))
 			throw new BankDetailsDidntMatchException(PaymentConstants.BANK_ACCOUNT_DETAILS_MISS_MATCH);
-		
-		if (bankacc1.getAmount() <= orderproduct.getTotalCost())
-			throw new NotSufficientBalanceException (PaymentConstants.BANK_BALANCE_INSUFFICIENT);
+
+		if (bankacc.getAmount() <= orderproduct.getTotalCost())
+			throw new NotSufficientBalanceException(PaymentConstants.BANK_BALANCE_INSUFFICIENT);
 		BankTransaction newtransaction = new BankTransaction();
-		
+
 		newtransaction.setTxnAmount(orderproduct.getTotalCost());
 		newtransaction.setTxnDate(LocalDate.now());
-		
-		bankacc1.setAmount(bankacc1.getAmount() - orderproduct.getTotalCost());
-		
-		BankAccount savebankacc = bankaccdao.save(bankacc1);
+		newtransaction.setOrderproducts(orderproduct);
+
+		bankacc.setAmount(bankacc.getAmount() - orderproduct.getTotalCost());
+
+		BankAccount savebankacc = bankaccdao.save(bankacc);
 		newtransaction.setBankAcc(savebankacc);
-		
+
 		BankTransaction savebanktnx = btnxdao.save(newtransaction);
-		
+
 		return savebanktnx.getBankTxns();
 	}
-	
+
 }
