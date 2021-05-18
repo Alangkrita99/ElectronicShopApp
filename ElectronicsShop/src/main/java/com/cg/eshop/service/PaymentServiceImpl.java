@@ -44,22 +44,25 @@ public class PaymentServiceImpl implements IPaymentService {
 		if (!optemp.isPresent()) {
 			throw new TransactionNotFoundException("No bank transaction found for id" + trnxID);
 		}
+		System.out.println("error 1");
 		return optemp.get();
 	}
 
 
 	@Override
-	public List<BankTransaction> viewPaymentbyCustID(Integer custId) throws TransactionNotFoundException, OrderProductsNotFoundException, CustomerNotFoundException {
+	public List<BankTransaction> viewPaymentbyCustID(Integer custId) throws TransactionNotFoundException, CustomerNotFoundException {
 		Optional<Customer> optCust = customerDao.findById(custId);
-		
+		System.out.println("no error1");
 		if(!optCust.isPresent())
 			throw new CustomerNotFoundException(OrderConstants.CUSTOMER_NOT_FOUND);
 		
-		List<BankTransaction> lst = btnxdao.viewAllBankTransaction(custId);
 		
+		List<BankTransaction> lst = btnxdao.viewAllBankTransaction(custId);
+		System.out.println("no error 2");
 		if(lst.isEmpty())
-			throw new OrderProductsNotFoundException(OrderConstants.ORDER_EMPTY);
-		lst.sort((e1,e2)->e1.getTxnDate().compareTo(e2.getTxnDate()));
+			throw new TransactionNotFoundException(PaymentConstants.BANK_TRANSACTION_NOT_FOUND);
+		//lst.sort((e1,e2)->e1.getTxnDate().compareTo(e2.getTxnDate()));
+		System.out.println("no error 3");
 		return lst;
 	}
 

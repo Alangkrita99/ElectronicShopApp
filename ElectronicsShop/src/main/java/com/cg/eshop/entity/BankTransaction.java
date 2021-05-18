@@ -25,17 +25,17 @@ public class BankTransaction {
 	private LocalDate txnDate;
 	@Column(name = "txn_amount")
 	private Double txnAmount;
-	/*@ManyToOne
+	@ManyToOne
 	@JoinColumn(name = "order_id", referencedColumnName = "order_id")
-	private OrderProducts orderproducts;*/
+	private OrderProducts orderproducts;
 
-	/*public OrderProducts getOrderproducts() {
+	public OrderProducts getOrderproducts() {
 		return orderproducts;
 	}
 
 	public void setOrderproducts(OrderProducts orderproducts) {
 		this.orderproducts = orderproducts;
-	}*/
+	}
 
 	public Integer getBankTxns() {
 		return bankTxns;
