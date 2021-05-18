@@ -33,8 +33,10 @@ public class BasketRestController {
 	Logger logger = LoggerFactory.getLogger(BasketRestController.class);
 	
 	@PostMapping("additemsinbasket")
-	public SuccessMessage addItemsInBasket(@Valid @RequestBody BasketDto basketRequestDto) throws ProductNotFoundException, CustomerNotFoundException, ValidateException
+	public SuccessMessage addItemsInBasket(@Valid @RequestBody BasketDto basketRequestDto, BindingResult br) throws ProductNotFoundException, CustomerNotFoundException, ValidateException
 	{
+		if (br.hasErrors())
+			throw new ValidateException(br.getFieldErrors());
 	    int basketid = basketService.addItem(basketRequestDto);
 		return new SuccessMessage(BasketConstants.BASKET_ITEM_ADDED+basketid);
 		
@@ -47,7 +49,7 @@ public class BasketRestController {
 		return new SuccessMessage(BasketConstants.BASKET_ITEM_DELETED+itemdeleted);
 		
 	}
-	@DeleteMapping("deleteitemcycartid/{cart_id}")
+	@DeleteMapping("deleteitembycartid/{cart_id}")
 	public SuccessMessage deleteByCart( @PathVariable("cart_id") Integer cartId) throws BasketException
 	{
 	    boolean itemdeleted = basketService.removeByCartId(cartId);
