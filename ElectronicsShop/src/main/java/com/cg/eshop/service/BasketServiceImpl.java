@@ -33,40 +33,27 @@ public class BasketServiceImpl implements IBasketService{
 	IElectronicProductDetailsDao productdao;
 	
 	@Override
-	public List<Basket> viewItems(Integer custId) throws CustomerNotFoundException {
+	public List<Basket> viewItems(Integer custId) throws BasketException, CustomerNotFoundException {
+		Optional<Customer> cust=custdao.findById(custId);
+		if(!cust.isPresent())
+			throw new CustomerNotFoundException(BasketConstants.CUSTOMER_NOT_FOUND);
 		List<Basket> bkt= basketdao.getItemsFromBasket(custId);
 		if(bkt.isEmpty())
-			throw new CustomerNotFoundException(BasketConstants.CUSTOMER_NOT_FOUND);
+			throw new BasketException(BasketConstants.BASKET_EMPTY);
 		return bkt;
 		
 	}
 
 	@Override
-	@Transactional(readOnly = false)
-	public boolean removeItem(int custid,int prodId) throws ProductNotFoundException,CustomerNotFoundException, BasketException {
-		List<Basket> pbkt=viewItemsByProduct(prodId);
-		List<Basket> bkt = viewItems(custid);
-		if(pbkt== null && bkt==null)
+	public List<Basket> viewAllItems() throws BasketException{
+		List<Basket> bkt= basketdao.findAll();
+		if(bkt.isEmpty())
 			throw new BasketException(BasketConstants.BASKET_EMPTY);
+		return bkt;
 		
-		else if(bkt== null)
-			throw new CustomerNotFoundException(BasketConstants.CUSTOMER_NOT_FOUND);
-		else if(pbkt==null)
-			throw new ProductNotFoundException(BasketConstants.PRODUCT_NOT_FOUND);
-
-		for(Basket b:pbkt)
-		{
-			if(b.getCustomer().getCustomerId()==custid)
-			{
-				basketdao.delete(b);
-			    return true;
-			}
-			
-		}
-		
-		return false;
 	}
 
+	
 	@Override
 	@Transactional(readOnly = false)
 	public Integer addItem(BasketDto basketdto) throws ProductNotFoundException, CustomerNotFoundException {
@@ -85,12 +72,36 @@ public class BasketServiceImpl implements IBasketService{
 		return persistedBasket.getBasketId();
 	}
 
+
+
 	@Override
-	public List<Basket> viewItemsByProduct(Integer proId) throws ProductNotFoundException {
-		List<Basket> bkt= basketdao.viewItemsByProduct(proId);
+	@Transactional(readOnly = false)
+	public boolean removeAllItem(int custId) throws CustomerNotFoundException, BasketException {
+		Optional<Customer> customer = custdao.findById(custId);
+		if(!customer.isPresent())
+			throw new CustomerNotFoundException(BasketConstants.CUSTOMER_NOT_FOUND);
+			
+		List<Basket> bkt = viewItems(custId);
 		if(bkt==null)
-			throw new ProductNotFoundException(BasketConstants.PRODUCT_NOT_FOUND);
-		return bkt;
+			throw new BasketException(BasketConstants.BASKET_EMPTY);
+		for(Basket b: bkt)
+		{
+			basketdao.delete(b);
+			
+		}
+		
+		return true;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public boolean removeByCartId(int cartId) throws BasketException {
+		Optional<Basket> item = basketdao.findById(cartId);
+		if(!item.isPresent())
+			throw new BasketException(BasketConstants.BASKET_ITEM_NOT_PRESENT);
+		Basket bkt = item.get();
+		basketdao.delete(bkt);
+		return true;
 	}
 
 }

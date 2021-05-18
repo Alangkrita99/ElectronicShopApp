@@ -10,9 +10,12 @@ import com.cg.eshop.exception.ProductNotFoundException;
 
 public interface IBasketService {
 	
-	public List<Basket> viewItems(Integer custId) throws CustomerNotFoundException;
-	public List<Basket> viewItemsByProduct(Integer proId) throws ProductNotFoundException;
-	public Integer addItem(BasketDto basketdto) throws ProductNotFoundException, CustomerNotFoundException;
-	public boolean removeItem(int custId,int prodId) throws ProductNotFoundException, CustomerNotFoundException, BasketException;
+	public List<Basket> viewItems(Integer custId) throws BasketException, CustomerNotFoundException;
 
+	public Integer addItem(BasketDto basketdto) throws ProductNotFoundException, CustomerNotFoundException;
+	
+	public boolean removeAllItem(int custId) throws CustomerNotFoundException, BasketException;
+	public boolean removeByCartId(int cartId) throws BasketException;
+
+	List<Basket> viewAllItems() throws BasketException;
 }

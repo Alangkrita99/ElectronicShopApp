@@ -33,26 +33,39 @@ public class BasketRestController {
 	Logger logger = LoggerFactory.getLogger(BasketRestController.class);
 	
 	@PostMapping("additemsinbasket")
-	public SuccessMessage addItemsInBasket(@Valid @RequestBody BasketDto basketRequestDto,BindingResult br) throws ProductNotFoundException, CustomerNotFoundException, ValidateException
+	public SuccessMessage addItemsInBasket(@Valid @RequestBody BasketDto basketRequestDto) throws ProductNotFoundException, CustomerNotFoundException, ValidateException
 	{
-		if (br.hasErrors())
-			throw new ValidateException(br.getFieldErrors());
 	    int basketid = basketService.addItem(basketRequestDto);
 		return new SuccessMessage(BasketConstants.BASKET_ITEM_ADDED+basketid);
 		
 	}
-	@DeleteMapping("deleteitemsinbasket/{cust_id}/{prod_id}")
-	public SuccessMessage deleteItemsInBasket( @PathVariable("cust_id") Integer custId,@PathVariable("prod_id") Integer prodId) throws ProductNotFoundException, CustomerNotFoundException, BasketException
+	
+	@DeleteMapping("deleteallitemsbycustid/{cust_id}")
+	public SuccessMessage deleteAllItems( @PathVariable("cust_id") Integer custId) throws CustomerNotFoundException, BasketException
 	{
-	    boolean itemdeleted = basketService.removeItem(custId, prodId);
+	    boolean itemdeleted = basketService.removeAllItem(custId);
+		return new SuccessMessage(BasketConstants.BASKET_ITEM_DELETED+itemdeleted);
+		
+	}
+	@DeleteMapping("deleteitemcycartid/{cart_id}")
+	public SuccessMessage deleteByCart( @PathVariable("cart_id") Integer cartId) throws BasketException
+	{
+	    boolean itemdeleted = basketService.removeByCartId(cartId);
 		return new SuccessMessage(BasketConstants.BASKET_ITEM_DELETED+itemdeleted);
 		
 	}
 	@GetMapping("viewitems/{cust_id}")
 	public List<Basket> getitemsinbasket(@PathVariable("cust_id") Integer custID)
-			throws ProductNotFoundException, CustomerNotFoundException {
+			throws ProductNotFoundException, CustomerNotFoundException, BasketException {
 		logger.info(custID + "");
 		return basketService.viewItems(custID);
+	}
+	
+	@GetMapping("viewallitems")
+	public List<Basket> getallitemsinbasket()
+			throws ProductNotFoundException, CustomerNotFoundException, BasketException {
+		
+		return basketService.viewAllItems();
 	}
 
 	
