@@ -11,4 +11,3 @@ public interface IElectronicProductDetailService {
 
 	public ElectronicProductDetails getProductDetailsByProductId(Integer productId) throws ProductNotFoundException;
 }
-//category
