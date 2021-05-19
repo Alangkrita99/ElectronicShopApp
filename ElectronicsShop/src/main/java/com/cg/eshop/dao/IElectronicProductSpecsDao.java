@@ -11,6 +11,6 @@ import com.cg.eshop.entity.ElectronicProductSpecs;
 
 @Repository
 public interface IElectronicProductSpecsDao extends JpaRepository<ElectronicProductSpecs, Integer> {
-	@Query("from ElectronicProductSpecs specs inner join fetch specs.elecProdDetails product where product.productID=:prod_id")
-	public List<ElectronicProductSpecs> getSpecifications(@Param("prod_id") Integer productId);
+	//@Query("from ElectronicProductSpecs specs inner join fetch specs.elecProdDetails product where product.productID=:prod_id")
+	//public List<ElectronicProductSpecs> getSpecifications(@Param("prod_id") Integer productId);
 }
