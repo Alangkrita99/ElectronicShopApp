@@ -7,6 +7,7 @@ import com.cg.eshop.utils.BasketConstants;
 
 public class BasketDto {
 
+	private Integer basketId;
 	@NotNull(message = BasketConstants.CUSTOMER_NOT_NULL)
 	private Integer custId;
 	@NotNull(message = BasketConstants.PRODUCT_NOT_NULL)
@@ -16,6 +17,22 @@ public class BasketDto {
 		super();
 	}
 	
+	
+	public BasketDto(Integer basketId, Integer custId, Integer prodId) {
+		super();
+		this.basketId = basketId;
+		this.custId = custId;
+		this.prodId = prodId;
+	}
+
+
+	public BasketDto(Integer custId, Integer prodId) {
+		super();
+		this.custId = custId;
+		this.prodId = prodId;
+	}
+
+
 	public Integer getCustId() {
 		return custId;
 	}

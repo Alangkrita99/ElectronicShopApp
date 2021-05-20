@@ -1,3 +1,8 @@
+/**
+ * @author SUKANYA BISWAS
+ * @Version : 1.0
+ * @Description : This Controller Class manages the RestController for Basket Management 
+ */
 package com.cg.eshop.web;
 
 import java.util.List;
@@ -7,6 +12,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,18 +63,34 @@ public class BasketRestController {
 		return new SuccessMessage(BasketConstants.BASKET_ITEM_DELETED+itemdeleted);
 		
 	}
+	
+	/**
+	 * @param custId CustomerId
+	 * @return ResponseEntity 
+	 * @throws BasketException ,if Basket is empty for a customer Id
+	 * @throws CustomerNotFoundException, if Customer Id not found
+	 * @description This method returns ResponseStatus OK when Basket items found for Customer Id
+	 * @createdAt 17-May-2021 
+	 */
 	@GetMapping("viewitems/{cust_id}")
-	public List<Basket> getitemsinbasket(@PathVariable("cust_id") Integer custID)
-			throws ProductNotFoundException, CustomerNotFoundException, BasketException {
+	public ResponseEntity<List<Basket>> getitemsinbasket(@PathVariable("cust_id") Integer custID)
+			throws CustomerNotFoundException, BasketException {
 		logger.info(custID + "");
-		return basketService.viewItems(custID);
+		List<Basket> bkt = basketService.viewItems(custID);
+		return ResponseEntity.ok(bkt);
 	}
 	
+	/**
+	 * @return ResponseEntity 
+	 * @throws BasketException ,if no basket items present
+	 * @description This method returns all basket items
+	 * @createdAt 17-May-2021 
+	 */
 	@GetMapping("viewallitems")
-	public List<Basket> getallitemsinbasket()
-			throws ProductNotFoundException, CustomerNotFoundException, BasketException {
+	public ResponseEntity<List<Basket>> getallitemsinbasket() throws BasketException {
 		
-		return basketService.viewAllItems();
+		List<Basket> bkt = basketService.viewAllItems();
+		return new ResponseEntity<List<Basket>>(bkt,HttpStatus.OK);
 	}
 
 	

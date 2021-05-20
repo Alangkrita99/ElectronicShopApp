@@ -25,6 +25,18 @@ public class Basket {
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id")
 	private ElectronicProductDetails productDetails;
 
+	
+	public Basket(Integer basketId) {
+		super();
+		this.basketId = basketId;
+	}
+	
+
+	public Basket() {
+		super();
+	}
+
+
 	public Integer getBasketId() {
 		return basketId;
 	}

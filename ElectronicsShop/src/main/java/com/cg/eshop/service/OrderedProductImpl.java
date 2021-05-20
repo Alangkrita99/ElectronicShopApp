@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.eshop.dao.ICartDao;
+import com.cg.eshop.dao.IBasketDao;
 import com.cg.eshop.dao.ICustomerDao;
 import com.cg.eshop.dao.IElectronicProductDetailsDao;
 import com.cg.eshop.dao.IOrderProductsDao;
@@ -36,7 +36,7 @@ public class OrderedProductImpl implements IOrderedProductService{
 	@Autowired
 	private IElectronicProductDetailsDao electronicProductDetailsDao;
 	@Autowired
-	private ICartDao cartDao;
+	private IBasketDao cartDao;
 	// Create Order
 	@Override
 	public Integer createOrder(Integer customerId) throws CustomerNotFoundException, BasketException {
