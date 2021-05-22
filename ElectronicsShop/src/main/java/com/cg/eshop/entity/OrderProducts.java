@@ -1,7 +1,6 @@
 package com.cg.eshop.entity;
 
 import java.time.LocalDate;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,10 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "cg_order_products")
@@ -31,13 +27,24 @@ public class OrderProducts {
 	private Double totalCost;
 	@Column(name = "order_status")
 	private String orderStatus;
-	/*@JsonIgnore
-	@OneToMany
-	private Set<BankTransaction> banktranxs;*/
-
+	/*
+	 * @JsonIgnore
+	 * 
+	 * @OneToMany private Set<BankTransaction> banktranxs;
+	 */
 
 	public Integer getOrderId() {
 		return orderId;
+	}
+
+	public OrderProducts(Integer orderId, LocalDate orderDate, Customer customer, Double totalCost,
+			String orderStatus) {
+		super();
+		this.orderId = orderId;
+		this.orderDate = orderDate;
+		this.customer = customer;
+		this.totalCost = totalCost;
+		this.orderStatus = orderStatus;
 	}
 
 	public void setOrderId(Integer orderId) {
@@ -78,7 +85,19 @@ public class OrderProducts {
 
 	@Override
 	public String toString() {
-		return orderId + " " + orderDate +" " + totalCost + " " + orderStatus;
+		return orderId + " " + orderDate + " " + totalCost + " " + orderStatus;
+	}
+
+	public OrderProducts(Integer orderId, LocalDate orderDate, String orderStatus, Double totalCost) {
+		super();
+		this.orderId = orderId;
+		this.orderDate = orderDate;
+		this.totalCost = totalCost;
+		this.orderStatus = orderStatus;
+	}
+
+	public OrderProducts() {
+		super();
 	}
 
 }

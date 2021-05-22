@@ -14,6 +14,6 @@ import com.cg.eshop.exception.TransactionNotFoundException;
 
 public interface IPaymentService {
 	public BankTransaction viewPayment(Integer trnxID) throws TransactionNotFoundException;
-	public List<BankTransaction> viewPaymentbyCustID(Integer custId) throws TransactionNotFoundException, OrderProductsNotFoundException, CustomerNotFoundException;
+	public List<BankTransaction> viewPaymentbyCustID(Integer custId) throws TransactionNotFoundException, CustomerNotFoundException;
 	public Integer makePayment (PaymentReqDto payreqdto) throws OrderProductsNotFoundException, BankAccountNotFoundException, BankDetailsDidntMatchException, NotSufficientBalanceException;
 }

@@ -9,6 +9,14 @@ public class BasketDto {
 	public BasketDto() {
 		super();
 	}
+	
+	public BasketDto(Integer basketId, Integer custId, Integer prodId) {
+		super();
+		this.basketId = basketId;
+		this.custId = custId;
+		this.prodId = prodId;
+	}
+
 	public BasketDto(Integer custId, Integer prodId) {
 		super();
 		this.custId = custId;

@@ -42,6 +42,22 @@ public class ElectronicProductDetails {
 	private Integer stock;
 	
 	
+	public ElectronicProductDetails() {
+		super();
+	}
+
+	public ElectronicProductDetails(Integer productID, String code, String name, Double price, String image,
+			LocalDate createdate, Integer stock) {
+		super();
+		this.productID = productID;
+		this.code = code;
+		this.name = name;
+		this.price = price;
+		this.image = image;
+		this.createdate = createdate;
+		this.stock = stock;
+	}
+
 	public Integer getStock() {
 		return stock;
 	}

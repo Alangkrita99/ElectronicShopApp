@@ -1,12 +1,12 @@
 package com.cg.eshop.dto;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.cg.eshop.utils.ProductConstants;
 
 public class ElectronicProductSpecsDto {
+	private Integer specId;
 	@NotNull(message = ProductConstants.PRODUCT_ID_REQUIRE)
 	private Integer productId;
 	@NotBlank(message = ProductConstants.SPEC_NAME_REQUIRE)
@@ -18,15 +18,24 @@ public class ElectronicProductSpecsDto {
 		super();
 	}
 
-	public ElectronicProductSpecsDto(Integer productId, String specName, String specValue) {
+	public ElectronicProductSpecsDto(Integer specId, Integer productId, String specName, String specValue) {
+		super();
+		this.specId = specId;
+		this.productId = productId;
+		this.specName = specName;
+		this.specValue = specValue;
+	}
+
+	public ElectronicProductSpecsDto(String specName, String specValue, Integer productId) {
 		super();
 		this.productId = productId;
 		this.specName = specName;
 		this.specValue = specValue;
 	}
 
-	public ElectronicProductSpecsDto(String specName, String specValue) {
+	public ElectronicProductSpecsDto(Integer specId, String specName, String specValue) {
 		super();
+		this.specId = specId;
 		this.specName = specName;
 		this.specValue = specValue;
 	}
@@ -53,6 +62,14 @@ public class ElectronicProductSpecsDto {
 
 	public void setSpecValue(String specValue) {
 		this.specValue = specValue;
+	}
+
+	public Integer getSpecId() {
+		return specId;
+	}
+
+	public void setSpecId(Integer specId) {
+		this.specId = specId;
 	}
 
 }

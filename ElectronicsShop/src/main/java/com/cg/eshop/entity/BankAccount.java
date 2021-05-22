@@ -37,6 +37,18 @@ public class BankAccount {
 	private Set<BankTransaction> banktranxs;
 
 
+	public BankAccount(Integer bankId, Integer cardNumber, Customer customer, String cardHolderName, LocalDate expiryDt,
+			Integer cvv, Double amount) {
+		super();
+		this.bankId = bankId;
+		this.cardNumber = cardNumber;
+		this.customer = customer;
+		this.cardHolderName = cardHolderName;
+		this.expiryDt = expiryDt;
+		this.cvv = cvv;
+		this.amount = amount;
+	}
+
 	public Integer getBankId() {
 		return bankId;
 	}
@@ -97,6 +109,10 @@ public class BankAccount {
 	public String toString() {
 	
 		return bankId + " " + cardNumber + " " + cardHolderName + " " + expiryDt + " " + cvv + " " + amount;
+	}
+
+	public BankAccount() {
+		super();
 	}
 	
 

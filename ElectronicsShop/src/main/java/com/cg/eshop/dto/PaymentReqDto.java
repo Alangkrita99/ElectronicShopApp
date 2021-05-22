@@ -2,12 +2,23 @@ package com.cg.eshop.dto;
 
 import java.time.LocalDate;
 
-public class PaymentReqDto {
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
 
+import org.hibernate.validator.constraints.Range;
+
+public class PaymentReqDto {
+	//@NotBlank(message = "order ID cant be blank")
 	private Integer orderId;
+	@Range(min = 100, max = 999, message = "Please provide the 3 digit cvv number.")
+	@Digits(integer = 3, fraction = 0, message = "the cvv must be a number")
 	private Integer cvv;
+	@Future(message = "exprdate should not be in the past or present")
 	private LocalDate exprdate;
+	@NotBlank(message = "card holder name must be present")
 	private String cardholder;
+	//@Range(min = 10, max = 10, message = "Please provide a valid card number.")
 	private Integer cardno;
 
 	public Integer getOrderId() {

@@ -26,10 +26,23 @@ public class OrderedProductDetails {
 	@JoinColumn(name="product_id",referencedColumnName = "product_id")
 	private ElectronicProductDetails electronicProduct;
 	
+	
+	public OrderedProductDetails(Integer prodOrderId, OrderProducts prodOrders,
+			ElectronicProductDetails electronicProduct) {
+		super();
+		this.prodOrderId = prodOrderId;
+		this.prodOrders = prodOrders;
+		this.electronicProduct = electronicProduct;
+	}
+
+	public OrderedProductDetails() {
+		super();
+	}
+
 	public Integer getProdOrderId() {
 		return prodOrderId;
 	}
-
+	
 	public void setProdOrderId(Integer prodOrderId) {
 		this.prodOrderId = prodOrderId;
 	}
