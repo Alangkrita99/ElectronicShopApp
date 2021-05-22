@@ -24,7 +24,7 @@ import com.cg.eshop.service.BasketServiceImpl;
 import com.cg.eshop.service.IBasketService;
 
 @SpringBootTest
-public class TestAddCartItem {
+class TestAddCartItem {
 
 	@Mock
 	private IBasketDao basketdao;
@@ -39,7 +39,7 @@ public class TestAddCartItem {
 	private IBasketService basketservice = new BasketServiceImpl();
 
 	@BeforeEach
-	public void beforeEach() {
+	void beforeEach() {
 		Optional<Customer> cust1 = Optional.of(new Customer());
 		when(custdao.findById(1001)).thenReturn(cust1);
 		Optional<Customer> cust2 = Optional.empty();
@@ -54,35 +54,35 @@ public class TestAddCartItem {
 
 	@Test
 	@DisplayName(value = "Add BasketItem for Customer 1001 & product 1001")
-	public void testAddItem1() throws ProductNotFoundException, CustomerNotFoundException {
+	 void testAddItem1() throws ProductNotFoundException, CustomerNotFoundException {
 		BasketDto bdto = new BasketDto(21, 1001, 1001);
 		assertNotNull(basketservice.addItem(bdto));
 	}
 
 	@Test
 	@DisplayName(value = "Add BasketItem for Customer 1002 & product 1001")
-	public void testAddItem2() throws ProductNotFoundException, CustomerNotFoundException {
+	void testAddItem2() throws ProductNotFoundException, CustomerNotFoundException {
 		BasketDto bdto = new BasketDto(1002, 1001);
 		assertThrows(CustomerNotFoundException.class, () -> basketservice.addItem(bdto));
 	}
 
 	@Test
 	@DisplayName(value = "Add BasketItem for Customer 1001 & product 1001")
-	public void testAddItem3() throws ProductNotFoundException, CustomerNotFoundException {
+    void testAddItem3() throws ProductNotFoundException, CustomerNotFoundException {
 		BasketDto bdto = new BasketDto(21, 1001, 1001);
-		assertTrue(basketservice.addItem(bdto) == 21);
+		assertEquals(21,basketservice.addItem(bdto));
 	}
 
 	@Test
 	@DisplayName(value = "Add BasketItem for Customer 1001 & product 1002")
-	public void testAddItem4() throws ProductNotFoundException, CustomerNotFoundException {
+	void testAddItem4() throws ProductNotFoundException, CustomerNotFoundException {
 		BasketDto bdto = new BasketDto(1001, 1002);
 		assertThrows(ProductNotFoundException.class, () -> basketservice.addItem(bdto));
 	}
 
 	@Test
 	@DisplayName(value = "Add BasketItem for Customer 1002 & product 1002")
-	public void testAddItem5() throws ProductNotFoundException, CustomerNotFoundException {
+	void testAddItem5() throws ProductNotFoundException, CustomerNotFoundException {
 		BasketDto bdto = new BasketDto(1002, 1002);
 		assertThrows(CustomerNotFoundException.class, () -> basketservice.addItem(bdto));
 	}

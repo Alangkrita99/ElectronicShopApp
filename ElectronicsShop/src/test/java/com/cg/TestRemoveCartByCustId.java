@@ -23,21 +23,20 @@ import com.cg.eshop.exception.BasketException;
 import com.cg.eshop.exception.CustomerNotFoundException;
 import com.cg.eshop.service.BasketServiceImpl;
 import com.cg.eshop.service.IBasketService;
+
 @SpringBootTest
-public class TestRemoveCartByCustId {
+class TestRemoveCartByCustId {
 	@Mock
 	private IBasketDao basketdao;
-	
+
 	@Mock
-    private ICustomerDao custdao;
-	
+	private ICustomerDao custdao;
+
 	@InjectMocks
 	private IBasketService basketService = new BasketServiceImpl();
-	
-	
+
 	@BeforeEach
-	public void beforeEach() throws BasketException
-	{
+	void beforeEach() throws BasketException {
 
 		Optional<Customer> cust1 = Optional.of(new Customer());
 		when(custdao.findById(1001)).thenReturn(cust1);
@@ -50,28 +49,25 @@ public class TestRemoveCartByCustId {
 		List<Basket> optbasket2 = new ArrayList<>();
 		when(basketdao.getItemsFromBasket(1001)).thenReturn(optbasket1);
 		when(basketdao.getItemsFromBasket(1003)).thenReturn(optbasket2);
-		
+
 	}
-	
+
 	@Test
 	@DisplayName(value = "Test RemoveByCustId for 1001")
-	public void testRemoveCartItembyCust() throws BasketException, CustomerNotFoundException
-	{
+	void testRemoveCartItembyCust() throws BasketException, CustomerNotFoundException {
 		assertTrue(basketService.removeAllItem(1001));
 	}
-	
+
 	@Test
 	@DisplayName(value = "Test RemoveByCustId for 1002")
-	public void testRemoveCartItem2() throws BasketException, CustomerNotFoundException
-	{
-		assertThrows(CustomerNotFoundException.class,()->basketService.removeAllItem(1002));
+	void testRemoveCartItem2() throws BasketException, CustomerNotFoundException {
+		assertThrows(CustomerNotFoundException.class, () -> basketService.removeAllItem(1002));
 	}
-	
+
 	@Test
 	@DisplayName(value = "Test RemoveByCustId for 1003")
-	public void testRemoveCartItem3() throws BasketException, CustomerNotFoundException
-	{
-		assertThrows(BasketException.class,()->basketService.removeAllItem(1003));
+	void testRemoveCartItem3() throws BasketException, CustomerNotFoundException {
+		assertThrows(BasketException.class, () -> basketService.removeAllItem(1003));
 	}
 
 }

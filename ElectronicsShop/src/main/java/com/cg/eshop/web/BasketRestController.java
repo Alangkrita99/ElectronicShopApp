@@ -34,66 +34,88 @@ import com.cg.eshop.utils.BasketConstants;
 
 @RestController
 public class BasketRestController {
-	
+
 	@Autowired
 	private IBasketService basketService;
+
 	Logger logger = LoggerFactory.getLogger(BasketRestController.class);
-	
+
+	/**
+	 * @param basketRequestDto BasketDto
+	 * @param br BindingResult
+	 * @return SuccessMessage
+	 * @throws ValidateException,         if basketDto has any field errors
+	 * @throws CustomerNotFoundException, if Customer Id not found
+	 * @throws ProductNotFoundException,  if Product Id not found
+	 * @description This method returns SuccessMessage when a Basket item added for a specific Customer Id and Product Id
+	 * @createdAt 17-May-2021
+	 */
 	@PostMapping("additemsinbasket")
-	public SuccessMessage addItemsInBasket(@Valid @RequestBody BasketDto basketRequestDto, BindingResult br) throws ProductNotFoundException, CustomerNotFoundException, ValidateException
-	{
+	public SuccessMessage addItemsInBasket(@Valid @RequestBody BasketDto basketRequestDto, BindingResult br)
+			throws ProductNotFoundException, CustomerNotFoundException, ValidateException {
 		if (br.hasErrors())
 			throw new ValidateException(br.getFieldErrors());
-	    int basketid = basketService.addItem(basketRequestDto);
-		return new SuccessMessage(BasketConstants.BASKET_ITEM_ADDED+basketid);
-		
+		int basketid = basketService.addItem(basketRequestDto);
+		return new SuccessMessage(BasketConstants.BASKET_ITEM_ADDED + basketid);
+
 	}
-	
-	@DeleteMapping("deleteallitemsbycustid/{cust_id}")
-	public SuccessMessage deleteAllItems( @PathVariable("cust_id") Integer custId) throws CustomerNotFoundException, BasketException
-	{
-	    boolean itemdeleted = basketService.removeAllItem(custId);
-		return new SuccessMessage(BasketConstants.BASKET_ITEM_DELETED+itemdeleted);
-		
-	}
-	@DeleteMapping("deleteitembycartid/{cart_id}")
-	public SuccessMessage deleteByCart( @PathVariable("cart_id") Integer cartId) throws BasketException
-	{
-	    boolean itemdeleted = basketService.removeByCartId(cartId);
-		return new SuccessMessage(BasketConstants.BASKET_ITEM_DELETED+itemdeleted);
-		
-	}
-	
+
 	/**
 	 * @param custId CustomerId
-	 * @return ResponseEntity 
+	 * @return SuccessMessage
+	 * @throws BasketException, if Basket is empty for a customer Id
+	 * @throws CustomerNotFoundException, if Customer Id not found
+	 * @description This method returns SuccessMessage when all Basket items deleted for a Customer Id
+	 * @createdAt 17-May-2021
+	 */
+	@DeleteMapping("deleteallitemsbycustid/{cust_id}")
+	public SuccessMessage deleteAllItems(@PathVariable("cust_id") Integer custId)
+			throws CustomerNotFoundException, BasketException {
+		boolean itemdeleted = basketService.removeAllItem(custId);
+		return new SuccessMessage(BasketConstants.BASKET_ITEM_DELETED + itemdeleted);
+
+	}
+
+	/**
+	 * @param cartId CartId
+	 * @return SuccessMessage
+	 * @throws BasketException ,if Basket item is not present
+	 * @description This method returns SuccessMessage when a Basket item is deleted
+	 * @createdAt 17-May-2021
+	 */
+	@DeleteMapping("deleteitembycartid/{cart_id}")
+	public SuccessMessage deleteByCart(@PathVariable("cart_id") Integer cartId) throws BasketException {
+		boolean itemdeleted = basketService.removeByCartId(cartId);
+		return new SuccessMessage(BasketConstants.BASKET_ITEM_DELETED + itemdeleted);
+
+	}
+
+	/**
+	 * @param custId CustomerId
+	 * @return ResponseEntity
 	 * @throws BasketException ,if Basket is empty for a customer Id
 	 * @throws CustomerNotFoundException, if Customer Id not found
 	 * @description This method returns ResponseStatus OK when Basket items found for Customer Id
-	 * @createdAt 17-May-2021 
+	 * @createdAt 17-May-2021
 	 */
 	@GetMapping("viewitems/{cust_id}")
 	public ResponseEntity<List<Basket>> getitemsinbasket(@PathVariable("cust_id") Integer custID)
 			throws CustomerNotFoundException, BasketException {
 		logger.info(custID + "");
 		List<Basket> bkt = basketService.viewItems(custID);
-		return ResponseEntity.ok(bkt);
-	}
-	
-	/**
-	 * @return ResponseEntity 
-	 * @throws BasketException ,if no basket items present
-	 * @description This method returns all basket items
-	 * @createdAt 17-May-2021 
-	 */
-	@GetMapping("viewallitems")
-	public ResponseEntity<List<Basket>> getallitemsinbasket() throws BasketException {
-		
-		List<Basket> bkt = basketService.viewAllItems();
-		return new ResponseEntity<List<Basket>>(bkt,HttpStatus.OK);
+		return new ResponseEntity<List<Basket>>(bkt, HttpStatus.OK);
 	}
 
-	
-	
+	/**
+	 * @return List<Basket>
+	 * @throws BasketException ,if no basket items present
+	 * @description This method returns all basket items
+	 * @createdAt 17-May-2021
+	 */
+	@GetMapping("viewallitems")
+	public List<Basket> getallitemsinbasket() throws BasketException {
+
+		return basketService.viewAllItems();
+	}
 
 }

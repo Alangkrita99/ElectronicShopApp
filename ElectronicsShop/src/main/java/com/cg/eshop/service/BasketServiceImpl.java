@@ -1,7 +1,7 @@
 /**
  * @author SUKANYA BISWAS
  * @Version : 1.0
- * @Description : This Service Class contains the service regarding Cart Management
+ * @Description : This Service Class contains the service regarding Basket Management
  */
 package com.cg.eshop.service;
 
@@ -40,10 +40,10 @@ public class BasketServiceImpl implements IBasketService {
 	/**
 	 * @param custId CustomerId
 	 * @return List<Basket>
-	 * @throws BasketException ,if Basket is empty for a customer Id
+	 * @throws BasketException, if Basket is empty for a customer Id
 	 * @throws CustomerNotFoundException, if Customer Id not found
 	 * @description This method returns a list of basket items for a customer Id
-	 * @createdAt 15-May-2021 
+	 * @createdAt 15-May-2021
 	 */
 	@Override
 	public List<Basket> viewItems(Integer custId) throws BasketException, CustomerNotFoundException {
@@ -56,12 +56,12 @@ public class BasketServiceImpl implements IBasketService {
 		return bkt;
 
 	}
-	
+
 	/**
 	 * @return List<Basket>
 	 * @throws BasketException ,if Basket is empty for a customer Id
 	 * @description This method returns all the basket items available
-	 * @createdAt 15-May-2021 
+	 * @createdAt 15-May-2021
 	 */
 
 	@Override
@@ -72,13 +72,14 @@ public class BasketServiceImpl implements IBasketService {
 		return bkt;
 
 	}
+
 	/**
 	 * @param basketdto BasketDto
 	 * @return BasketId Integer
 	 * @throws CustomerNotFoundException, if Customer Id not found
-	 * @throws ProductNotFoundException ,if Product Id not found
+	 * @throws ProductNotFoundException , if Product Id not found
 	 * @description This method add items to the basket for a specific customer and product
-	 * @createdAt 15-May-2021 
+	 * @createdAt 15-May-2021
 	 */
 
 	@Override
@@ -102,12 +103,12 @@ public class BasketServiceImpl implements IBasketService {
 	/**
 	 * @param custId CustomerId
 	 * @return boolean
-	 * @throws BasketException ,if Basket is empty for a customer Id
+	 * @throws BasketException          ,if Basket is empty for a customer Id
 	 * @throws CustomerNotFoundException, if Customer Id not found
 	 * @description This method removes all basket items for a customer Id
-	 * @createdAt 16-May-2021 
+	 * @createdAt 16-May-2021
 	 */
-	
+
 	@Override
 	@Transactional(readOnly = false)
 	public boolean removeAllItem(int custId) throws CustomerNotFoundException, BasketException {
@@ -131,9 +132,9 @@ public class BasketServiceImpl implements IBasketService {
 	 * @return boolean
 	 * @throws BasketException ,if Basket id is not found
 	 * @description This method removes a particular basket item
-	 * @createdAt 16-May-2021 
+	 * @createdAt 16-May-2021
 	 */
-	
+
 	@Override
 	@Transactional(readOnly = false)
 	public boolean removeByCartId(int basketId) throws BasketException {

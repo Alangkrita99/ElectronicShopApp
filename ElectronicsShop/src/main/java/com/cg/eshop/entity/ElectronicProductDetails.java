@@ -43,6 +43,7 @@ public class ElectronicProductDetails {
 	private Integer stock;
 	
 	
+	
 	public Integer getStock() {
 		return stock;
 	}

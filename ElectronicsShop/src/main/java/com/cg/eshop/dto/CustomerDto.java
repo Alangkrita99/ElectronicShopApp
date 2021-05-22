@@ -1,13 +1,7 @@
 package com.cg.eshop.dto;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 public class CustomerDto {
 	
-	private Integer customerId;
 	private String customerName;
 	private String customerEmail;
 	private String customerPhone;

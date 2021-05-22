@@ -21,7 +21,7 @@ import com.cg.eshop.service.BasketServiceImpl;
 import com.cg.eshop.service.IBasketService;
 import com.cg.eshop.web.BasketRestController;
 @SpringBootTest
-public class TestRemoveCartItem {
+class TestRemoveCartItem {
 	@Mock
 	private IBasketDao basketdao;
 	@InjectMocks
@@ -29,7 +29,7 @@ public class TestRemoveCartItem {
 	
 	
 	@BeforeEach
-	public void beforeEach() throws BasketException
+	void beforeEach() throws BasketException
 	{
 		Optional<Basket> bkt1 = Optional.of(new Basket());
 		when(basketdao.findById(11)).thenReturn(bkt1);
@@ -39,14 +39,14 @@ public class TestRemoveCartItem {
 	
 	@Test
 	@DisplayName(value = "Test RemoveByCartId for 11")
-	public void testRemoveCartItem() throws BasketException
+	void testRemoveCartItem() throws BasketException
 	{
 		assertTrue(basketService.removeByCartId(11));
 	}
 	
 	@Test
 	@DisplayName(value = "Test RemoveByCartId for 12")
-	public void testRemoveCartItem2() throws BasketException
+	void testRemoveCartItem2() throws BasketException
 	{
 		assertThrows(BasketException.class,()->basketService.removeByCartId(12));
 	}
