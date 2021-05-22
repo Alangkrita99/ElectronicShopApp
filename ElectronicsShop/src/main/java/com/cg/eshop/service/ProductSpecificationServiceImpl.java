@@ -1,3 +1,8 @@
+/**
+ * @author SOUHARDYA RAY
+ * @Version : 1.0
+ * @Description : This Service Class contains the service regarding Product Specification Management
+ */
 package com.cg.eshop.service;
 
 import java.util.List;
@@ -27,6 +32,13 @@ public class ProductSpecificationServiceImpl implements IProductSpecificationSer
 
 	Logger logger = LoggerFactory.getLogger(ProductSpecificationServiceImpl.class);
 
+	/**
+	 * @param electronicProductSpecsDto ElectronicProductSpecsDto
+	 * @return ElectronicProductSpecs
+	 * @throws ProductNotFoundException, if Product not found
+	 * @description This method adds Product Specifications for a given Product Id
+	 * @createdAt 15-May-2021
+	 */
 	@Override
 	public ElectronicProductSpecs addSpecs(ElectronicProductSpecsDto electronicProductSpecsDto)
 			throws ProductNotFoundException {
@@ -44,6 +56,15 @@ public class ProductSpecificationServiceImpl implements IProductSpecificationSer
 
 	}
 
+	/**
+	 * @param productId Integer
+	 * @return List<ElectronicProductSpecs>
+	 * @throws ProductNotFoundException, if Product not found
+	 * @throws NoSpecsException,         if Product Specification not found
+	 * @description This method returns a list of Product Specifications for a given
+	 *              Product Id
+	 * @createdAt 15-May-2021
+	 */
 	@Override
 	public List<ElectronicProductSpecs> getProductSpecsByProductId(Integer productId)
 			throws ProductNotFoundException, NoSpecsException {
@@ -59,9 +80,16 @@ public class ProductSpecificationServiceImpl implements IProductSpecificationSer
 		return lst;
 	}
 
+	/**
+	 * @param specId Integer
+	 * @return ElectronicProductSpecs
+	 * @throws NoSpecsException,if Product Specification not found
+	 * @description This method returns the Product Specifications for a given
+	 *              Specification Id
+	 * @createdAt 15-May-2021
+	 */
 	@Override
-	public ElectronicProductSpecs getProductSpecsBySpecId(Integer specId)
-			throws ProductNotFoundException, NoSpecsException {
+	public ElectronicProductSpecs getProductSpecsBySpecId(Integer specId) throws NoSpecsException {
 
 		Optional<ElectronicProductSpecs> optSpec = productSpecsDao.findById(specId);
 		if (!optSpec.isPresent())
@@ -70,6 +98,15 @@ public class ProductSpecificationServiceImpl implements IProductSpecificationSer
 
 	}
 
+	/**
+	 * @param electronicProductSpecsDto ElectronicProductSpecsDto
+	 * @return true boolean
+	 * @throws ProductNotFoundException, if Product not found
+	 * @throws NoSpecsException,if       Product Specification not found
+	 * @description This method edits the Product Specifications for a given
+	 *              Specification Id
+	 * @createdAt 15-May-2021
+	 */
 	@Override
 	@Transactional(readOnly = false)
 	public boolean editProductSpecsBySpecId(ElectronicProductSpecsDto electronicProductSpecsDto)
@@ -80,7 +117,7 @@ public class ProductSpecificationServiceImpl implements IProductSpecificationSer
 		ElectronicProductSpecs electronicspecs = optSpec.get();
 		electronicspecs.setSpecName(electronicProductSpecsDto.getSpecName());
 		electronicspecs.setSpecValue(electronicProductSpecsDto.getSpecValue());
-		ElectronicProductSpecs electronicspecssave = productSpecsDao.save(electronicspecs);
+		productSpecsDao.save(electronicspecs);
 		return true;
 	}
 

@@ -14,7 +14,7 @@ import com.cg.eshop.dao.ICustomerDao;
 import com.cg.eshop.dao.IElectronicProductDetailsDao;
 import com.cg.eshop.dao.IOrderProductsDao;
 import com.cg.eshop.dao.IOrderedProductDetailsDao;
-import com.cg.eshop.dto.OrderProductRequestDto;
+
 import com.cg.eshop.entity.Basket;
 import com.cg.eshop.entity.Customer;
 import com.cg.eshop.entity.ElectronicProductDetails;
@@ -56,7 +56,7 @@ public class OrderedProductImpl implements IOrderedProductService{
 		orderProduct.setCustomer(customer);
 		orderProduct.setOrderStatus(OrderConstants.ORDER_CONFIRM);
 		orderProduct.setTotalCost(findTotalCost(lstbasket));
-		OrderProducts savedOrder = orderProductsDao.save(orderProduct);
+		orderProductsDao.save(orderProduct);
 		
 		for(Basket basket : lstbasket) {
 			

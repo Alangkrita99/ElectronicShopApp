@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.validation.FieldError;
 
 public class ValidateException extends Exception {
+
+	private static final long serialVersionUID = 1L;
 	private List<FieldError> errors;
 
 	public ValidateException() {

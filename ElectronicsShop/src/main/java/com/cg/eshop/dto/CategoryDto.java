@@ -3,7 +3,7 @@ package com.cg.eshop.dto;
 public class CategoryDto {
 	private Integer categoryId;
 	private String categoryName;
-	
+
 	public CategoryDto(Integer categoryId, String categoryName) {
 		super();
 		this.categoryId = categoryId;
@@ -30,8 +30,5 @@ public class CategoryDto {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-	
-	
-	
 
 }

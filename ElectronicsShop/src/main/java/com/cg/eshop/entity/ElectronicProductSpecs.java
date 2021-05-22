@@ -1,5 +1,4 @@
 
-
 package com.cg.eshop.entity;
 
 import javax.persistence.Column;
@@ -29,6 +28,17 @@ public class ElectronicProductSpecs {
 	@ManyToOne
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id")
 	private ElectronicProductDetails elecProdDetails;
+
+	public ElectronicProductSpecs() {
+		super();
+	}
+
+	public ElectronicProductSpecs(Integer specId, String specName, String specValue) {
+		super();
+		this.specId = specId;
+		this.specName = specName;
+		this.specValue = specValue;
+	}
 
 	public Integer getSpecId() {
 		return specId;
@@ -64,7 +74,7 @@ public class ElectronicProductSpecs {
 
 	@Override
 	public String toString() {
-		return specId + " " + specName + " " + specValue ;
+		return specId + " " + specName + " " + specValue;
 	}
 
 }

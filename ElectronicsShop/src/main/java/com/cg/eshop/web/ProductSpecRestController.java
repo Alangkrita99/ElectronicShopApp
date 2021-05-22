@@ -1,3 +1,8 @@
+/**
+ * @author SOUHARDYA RAY
+ * @Version : 1.0
+ * @Description : This Controller Class manages the RestController for Product Specifications 
+ */
 package com.cg.eshop.web;
 
 import java.util.List;
@@ -31,6 +36,16 @@ public class ProductSpecRestController {
 
 	Logger logger = LoggerFactory.getLogger(ProductSpecRestController.class);
 
+	/**
+	 * @param electronicProductSpecsDto ElectronicProductSpecsDto
+	 * @return SuccessMessage
+	 * @throws ProductNotFoundException ,if Product not found
+	 * @throws ValidateException,       if ElectronicProductSpecsDto has any field
+	 *                                  errors
+	 * @description This method returns SuccessMessage when Product Specifications
+	 *              is added for a given Product Id
+	 * @createdAt 17-May-2021
+	 */
 	@PostMapping("addspecs")
 	public SuccessMessage addProductSpecs(@Valid @RequestBody ElectronicProductSpecsDto electronicProductSpecsDto,
 			BindingResult br) throws ProductNotFoundException, ValidateException {
@@ -42,6 +57,15 @@ public class ProductSpecRestController {
 		return new SuccessMessage(ProductConstants.PRODUCT_SPEC_ADDED + obj.getSpecId());
 	}
 
+	/**
+	 * @param productID Integer
+	 * @return List<ElectronicProductSpecs>
+	 * @throws ProductNotFoundException ,if Product not found
+	 * @throws NoSpecsException,        if Product Specification not found
+	 * @description This method returns the List of Product Specifications found for
+	 *              a given Product Id
+	 * @createdAt 17-May-2021
+	 */
 	@GetMapping("viewspecsbyproductid/{prod_id}")
 	public List<ElectronicProductSpecs> getProductSpecsByProductId(@PathVariable("prod_id") Integer productID)
 			throws ProductNotFoundException, NoSpecsException {
@@ -49,6 +73,15 @@ public class ProductSpecRestController {
 		return specService.getProductSpecsByProductId(productID);
 	}
 
+	/**
+	 * @param specID Integer
+	 * @return ElectronicProductSpecs
+	 * @throws ProductNotFoundException ,if Product not found
+	 * @throws NoSpecsException,        if Product Specification not found
+	 * @description This method returns a List of Product Specifications found for a
+	 *              given Specification Id
+	 * @createdAt 17-May-2021
+	 */
 	@GetMapping("viewspecsbyspecid/{spec_id}")
 	public ElectronicProductSpecs getProductSpecsBySpecId(@PathVariable("spec_id") Integer specId)
 			throws ProductNotFoundException, NoSpecsException {
@@ -56,6 +89,17 @@ public class ProductSpecRestController {
 		return specService.getProductSpecsBySpecId(specId);
 	}
 
+	/**
+	 * @param electronicProductSpecsDto ElectronicProductSpecsDto
+	 * @return String
+	 * @throws ProductNotFoundException ,if Product not found
+	 * @throws NoSpecsException,        if Product Specification not found
+	 * @throws ValidateException,       if ElectronicProductSpecsDto has any field
+	 *                                  errors
+	 * @description This method returns a Success Message if Product Specifications
+	 *              is edited for a given Specification Id
+	 * @createdAt 17-May-2021
+	 */
 	@PutMapping("editspecs/{spec_id}")
 	public String editProductSpecsBySpecId(@RequestBody ElectronicProductSpecsDto electronicProductSpecsDto,
 			BindingResult br) throws ProductNotFoundException, NoSpecsException, ValidateException {
