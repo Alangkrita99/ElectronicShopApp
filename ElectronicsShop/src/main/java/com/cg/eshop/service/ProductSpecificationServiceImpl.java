@@ -17,6 +17,11 @@ import com.cg.eshop.exception.NoSpecsException;
 import com.cg.eshop.exception.ProductNotFoundException;
 import com.cg.eshop.utils.ProductConstants;
 
+/**
+ * @author SOUHARDYA RAY
+ * @Version : 1.0
+ * @Description : This Service Class contains the service regarding Product Specification Management
+ */
 @Service
 public class ProductSpecificationServiceImpl implements IProductSpecificationService {
 	@Autowired
@@ -26,14 +31,21 @@ public class ProductSpecificationServiceImpl implements IProductSpecificationSer
 
 	Logger logger = LoggerFactory.getLogger(ProductSpecificationServiceImpl.class);
 
+	/**
+	 * @param electronicProductSpecsDto ElectronicProductSpecsDto
+	 * @return ElectronicProductSpecs
+	 * @throws ProductNotFoundException, if Product not found
+	 * @description This method adds Product Specifications for a given Product Id
+	 * @createdAt 15-May-2021
+	 */
+
 	@Override
 	public ElectronicProductSpecs addSpecs(ElectronicProductSpecsDto electronicProductSpecsDto)
 			throws ProductNotFoundException {
 
 		Optional<ElectronicProductDetails> optProduct = productDao.findById(electronicProductSpecsDto.getProductId());
-
 		logger.info("" + optProduct.isPresent());
-		if (!optProduct.isPresent())
+		if (optProduct.isEmpty())
 			throw new ProductNotFoundException(ProductConstants.PRODUCT_NOT_FOUND);
 		ElectronicProductSpecs electronicspecs = new ElectronicProductSpecs();
 		electronicspecs.setSpecName(electronicProductSpecsDto.getSpecName());
@@ -43,19 +55,68 @@ public class ProductSpecificationServiceImpl implements IProductSpecificationSer
 
 	}
 
+	/**
+	 * @param productId Integer
+	 * @return List<ElectronicProductSpecs>
+	 * @throws ProductNotFoundException, if Product not found
+	 * @throws NoSpecsException,         if Product Specification not found
+	 * @description This method returns a list of Product Specifications for a given
+	 *              Product Id
+	 * @createdAt 15-May-2021
+	 */
 	@Override
 	public List<ElectronicProductSpecs> getProductSpecsById(Integer productId)
 			throws ProductNotFoundException, NoSpecsException {
 		Optional<ElectronicProductDetails> optProduct = productDao.findById(productId);
 		if (!optProduct.isPresent())
 			throw new ProductNotFoundException(ProductConstants.PRODUCT_NOT_FOUND);
-		List<ElectronicProductSpecs> lst = productSpecsDao.getSpecifications(productId);
+		List<ElectronicProductSpecs> lst = productSpecsDao.getSpecificationsByProductId(productId);
 		
 		logger.info(""+lst.isEmpty());
 		if (lst.isEmpty())
 			throw new NoSpecsException(ProductConstants.PRODUCT_SPEC_EMPTY);
 		lst.sort((p1, p2) -> p1.getSpecName().compareTo(p2.getSpecName()));
 		return lst;
+	}
+
+	/**
+	 * @param specId Integer
+	 * @return ElectronicProductSpecs
+	 * @throws NoSpecsException,if Product Specification not found
+	 * @description This method returns the Product Specifications for a given
+	 *              Specification Id
+	 * @createdAt 15-May-2021
+	 */
+	@Override
+	public ElectronicProductSpecs getProductSpecsBySpecId(Integer specId)
+			throws ProductNotFoundException, NoSpecsException {
+		Optional<ElectronicProductSpecs> optSpec = productSpecsDao.findById(specId);
+		if (!optSpec.isPresent())
+			throw new NoSpecsException(ProductConstants.PRODUCT_SPEC_EMPTY);
+		return optSpec.get();
+
+	}
+
+	/**
+	 * @param electronicProductSpecsDto ElectronicProductSpecsDto
+	 * @return true boolean
+	 * @throws ProductNotFoundException, if Product not found
+	 * @throws NoSpecsException,if       Product Specification not found
+	 * @description This method edits the Product Specifications for a given
+	 *              Specification Id
+	 * @createdAt 15-May-2021
+	 */
+	@Override
+	public boolean editProductSpecsBySpecId(ElectronicProductSpecsDto electronicProductSpecsDto)
+			throws ProductNotFoundException, NoSpecsException {
+		Optional<ElectronicProductSpecs> optSpec = productSpecsDao.findById(electronicProductSpecsDto.getSpecId());
+		if (!optSpec.isPresent())
+			throw new NoSpecsException(ProductConstants.PRODUCT_SPEC_EMPTY);
+		ElectronicProductSpecs electronicspecs = optSpec.get();
+		electronicspecs.setSpecName(electronicProductSpecsDto.getSpecName());
+		electronicspecs.setSpecValue(electronicProductSpecsDto.getSpecValue());
+		productSpecsDao.save(electronicspecs);
+		return true;
 	}
 
 }

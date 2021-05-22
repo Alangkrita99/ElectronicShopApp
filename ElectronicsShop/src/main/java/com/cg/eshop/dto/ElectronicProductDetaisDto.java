@@ -31,6 +31,9 @@ public class ElectronicProductDetaisDto {
 		this.createdate = createdate;
 		this.stock = stock;
 	}
+	public ElectronicProductDetaisDto() {
+		super();
+	}
 	public Integer getProductID() {
 		return productID;
 	}

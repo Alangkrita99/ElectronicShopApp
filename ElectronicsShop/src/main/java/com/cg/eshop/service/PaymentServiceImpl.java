@@ -26,6 +26,12 @@ import com.cg.eshop.exception.TransactionNotFoundException;
 import com.cg.eshop.utils.OrderConstants;
 import com.cg.eshop.utils.PaymentConstants;
 
+/**
+ * @author WRIJU BANERJEE
+ * @Version : 1.0
+ * @Description : This Service Class contains the service regarding Payment
+ *              Management
+ */
 @Service
 @Transactional
 public class PaymentServiceImpl implements IPaymentService {
@@ -38,33 +44,57 @@ public class PaymentServiceImpl implements IPaymentService {
 	@Autowired
 	private IBankAccountDao bankaccdao;
 
+	/**
+	 * @param trnxID Bank Transaction Id
+	 * @return List<BankTransaction>
+	 * @throws TransactionNotFoundException ,if transaction is empty for a
+	 *                                      transaction Id
+	 * @description This method returns a list of transaction for a transaction Id
+	 * @createdAt 15-May-2021
+	 */
 	@Override
 	public BankTransaction viewPayment(Integer trnxID) throws TransactionNotFoundException {
 		Optional<BankTransaction> optemp = btnxdao.findById(trnxID);
 		if (!optemp.isPresent()) {
-			throw new TransactionNotFoundException("No bank transaction found for id" + trnxID);
+			throw new TransactionNotFoundException(PaymentConstants.BANK_TRANSACTION_NOT_FOUND + trnxID);
 		}
-		//System.out.println("error 1");
 		return optemp.get();
 	}
 
+	/**
+	 * @param custID Customer Id
+	 * @return List<BankTransaction>
+	 * @throws TransactionNotFoundException ,if transaction is empty for a
+	 *                                      transaction Id
+	 * @throws CustomerNotFoundException    ,if transaction is empty for a Customer
+	 *                                      Id
+	 * @description This method returns a list of transaction for a customer Id
+	 * @createdAt 16-May-2021
+	 */
 	@Override
 	public List<BankTransaction> viewPaymentbyCustID(Integer custId)
 			throws TransactionNotFoundException, CustomerNotFoundException {
 		Optional<Customer> optCust = customerDao.findById(custId);
-		System.out.println("no error1");
 		if (!optCust.isPresent())
 			throw new CustomerNotFoundException(OrderConstants.CUSTOMER_NOT_FOUND);
 
 		List<BankTransaction> lst = btnxdao.viewAllBankTransaction(custId);
-		System.out.println("no error 2");
 		if (lst.isEmpty())
 			throw new TransactionNotFoundException(PaymentConstants.BANK_TRANSACTION_NOT_FOUND);
-		// lst.sort((e1,e2)->e1.getTxnDate().compareTo(e2.getTxnDate()));
-		System.out.println("no error 3");
+
 		return lst;
 	}
 
+	/**
+	 * @param instance of payment dto
+	 * @return List<BankTransaction>
+	 * @throws TransactionNotFoundException ,if transaction is empty for a
+	 *                                      transaction Id
+	 * @throws CustomerNotFoundException    ,if transaction is empty for a Customer
+	 *                                      Id
+	 * @description This method returns a list of transaction for a customer Id
+	 * @createdAt 16-May-2021
+	 */
 	@Override
 	public Integer makePayment(PaymentReqDto payreqdto) throws OrderProductsNotFoundException,
 			BankAccountNotFoundException, BankDetailsDidntMatchException, NotSufficientBalanceException {
@@ -77,10 +107,11 @@ public class PaymentServiceImpl implements IPaymentService {
 		BankAccount bankacc = bankaccdao.findByCardNumber(payreqdto.getCardno());
 		if (bankacc == null)
 			throw new BankAccountNotFoundException(PaymentConstants.BANK_ACCOUNT_NOT_FOUND);
-		
+
 		bankacc.setCustomer(cust);
 
-		if (bankacc.getCvv() != payreqdto.getCvv() || !bankacc.getCardHolderName().equals(payreqdto.getCardholder()) 
+		if (!bankacc.getCvv().equals(payreqdto.getCvv())
+				|| !bankacc.getCardHolderName().equals(payreqdto.getCardholder())
 				|| !bankacc.getExpiryDt().equals(payreqdto.getExprdate()))
 			throw new BankDetailsDidntMatchException(PaymentConstants.BANK_ACCOUNT_DETAILS_MISS_MATCH);
 
@@ -93,7 +124,12 @@ public class PaymentServiceImpl implements IPaymentService {
 		newtransaction.setOrderproducts(orderproduct);
 
 		bankacc.setAmount(bankacc.getAmount() - orderproduct.getTotalCost());
+		
+		orderproduct.setOrderStatus("paid");
 
+		OrderProducts saveorderpro = orderProductsDao.save(orderproduct);
+		newtransaction.setOrderproducts(saveorderpro);
+		
 		BankAccount savebankacc = bankaccdao.save(bankacc);
 		newtransaction.setBankAcc(savebankacc);
 

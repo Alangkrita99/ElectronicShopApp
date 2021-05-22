@@ -1,11 +1,17 @@
 package com.cg.eshop.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "cg_customer")
@@ -31,6 +37,11 @@ public class Customer {
 	private String state;
 	@Column(name = "country")
 	private String country;
+	@JsonIgnore
+	@Transient
+	@OneToMany(mappedBy = "customer")
+	private Set<Basket> basket;
+
 
 	public Integer getCustomerId() {
 		return customerId;
@@ -108,5 +119,23 @@ public class Customer {
 	public String toString() {
 		return customerId + " " + customerEmail + " " + customerPhone + " " + addressLine + " " + postalCode + " "
 				+ city + " " + state + " " + country;
+	}
+
+	public Customer(Integer customerId, String customerName, String customerEmail, String customerPhone,
+			String addressLine, String postalCode, String city, String state, String country) {
+		super();
+		this.customerId = customerId;
+		this.customerName = customerName;
+		this.customerEmail = customerEmail;
+		this.customerPhone = customerPhone;
+		this.addressLine = addressLine;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+	}
+
+	public Customer() {
+		super();
 	}
 }

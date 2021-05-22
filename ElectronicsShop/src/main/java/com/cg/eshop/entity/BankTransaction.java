@@ -29,6 +29,25 @@ public class BankTransaction {
 	@JoinColumn(name = "order_id", referencedColumnName = "order_id")
 	private OrderProducts orderproducts;
 
+	public BankTransaction() {
+		super();
+	}
+
+	public BankTransaction(Integer bankTxns, BankAccount bankAcc, LocalDate txnDate, Double txnAmount) {
+		super();
+		this.bankTxns = bankTxns;
+		this.bankAcc = bankAcc;
+		this.txnDate = txnDate;
+		this.txnAmount = txnAmount;
+	}
+
+	public BankTransaction(Integer bankTxns, LocalDate txnDate, Double txnAmount) {
+		super();
+		this.bankTxns = bankTxns;
+		this.txnDate = txnDate;
+		this.txnAmount = txnAmount;
+	}
+
 	public OrderProducts getOrderproducts() {
 		return orderproducts;
 	}

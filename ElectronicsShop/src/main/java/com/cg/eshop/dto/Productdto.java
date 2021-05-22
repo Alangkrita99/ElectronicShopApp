@@ -42,6 +42,14 @@ public class Productdto {
 		this.categoryName = categoryName;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getProdName() {
 		return prodName;
 	}

@@ -29,6 +29,17 @@ public class ElectronicProductSpecs {
 	@ManyToOne
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id")
 	private ElectronicProductDetails elecProdDetails;
+	
+	public ElectronicProductSpecs(Integer specId, String specName, String specValue) {
+		super();
+		this.specId = specId;
+		this.specName = specName;
+		this.specValue = specValue;
+	}
+
+	public ElectronicProductSpecs() {
+		super ();
+	}
 
 	public Integer getSpecId() {
 		return specId;

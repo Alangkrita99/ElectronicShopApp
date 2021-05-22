@@ -8,4 +8,5 @@ public class OrderConstants {
 	public static final String ORDER_CREATED="Your Order Is Created And Id Is ";
 	public static final String ORDER_EMPTY="No Order Placed";
 	public static final String ORDER_NOT_FOUND="No Order Found";
+	public static final Integer INCREMENT_BY_ONE=1;
 }
