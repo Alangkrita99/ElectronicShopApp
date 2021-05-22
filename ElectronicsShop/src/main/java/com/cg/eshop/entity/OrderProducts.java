@@ -28,6 +28,30 @@ public class OrderProducts {
 	@Column(name = "order_status")
 	private String orderStatus;
 
+	public OrderProducts() {
+		super();
+	}
+	
+
+	public OrderProducts(LocalDate orderDate, Customer customer, Double totalCost, String orderStatus) {
+		super();
+		this.orderDate = orderDate;
+		this.customer = customer;
+		this.totalCost = totalCost;
+		this.orderStatus = orderStatus;
+	}
+
+
+	public OrderProducts(Integer orderId, LocalDate orderDate, Customer customer, Double totalCost,
+			String orderStatus) {
+		super();
+		this.orderId = orderId;
+		this.orderDate = orderDate;
+		this.customer = customer;
+		this.totalCost = totalCost;
+		this.orderStatus = orderStatus;
+	}
+
 	public Integer getOrderId() {
 		return orderId;
 	}

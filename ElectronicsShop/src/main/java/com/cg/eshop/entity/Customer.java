@@ -31,6 +31,39 @@ public class Customer {
 	private String state;
 	@Column(name = "country")
 	private String country;
+	
+	
+
+	public Customer() {
+		super();
+	}
+
+	public Customer(String customerName, String customerEmail, String customerPhone, String addressLine,
+			String postalCode, String city, String state, String country) {
+		super();
+		this.customerName = customerName;
+		this.customerEmail = customerEmail;
+		this.customerPhone = customerPhone;
+		this.addressLine = addressLine;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+	}
+
+	public Customer(Integer customerId, String customerName, String customerEmail, String customerPhone,
+			String addressLine, String postalCode, String city, String state, String country) {
+		super();
+		this.customerId = customerId;
+		this.customerName = customerName;
+		this.customerEmail = customerEmail;
+		this.customerPhone = customerPhone;
+		this.addressLine = addressLine;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+	}
 
 	public Integer getCustomerId() {
 		return customerId;

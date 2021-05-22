@@ -40,8 +40,38 @@ public class ElectronicProductDetails {
 	private Set<ElectronicProductSpecs> elecProdSpecs;
 	@Column(name = "prod_stock")
 	private Integer stock;
+
+	public ElectronicProductDetails() {
+		super();
+	}
+
+	public ElectronicProductDetails(String code, String name, Double price, String image, LocalDate createdate,
+			Category category, Set<ElectronicProductSpecs> elecProdSpecs, Integer stock) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.price = price;
+		this.image = image;
+		this.createdate = createdate;
+		this.category = category;
+		this.elecProdSpecs = elecProdSpecs;
+		this.stock = stock;
+	}
+
 	
-	
+
+	public ElectronicProductDetails(Integer productID, String code, String name, Double price, String image,
+			LocalDate createdate, Integer stock) {
+		super();
+		this.productID = productID;
+		this.code = code;
+		this.name = name;
+		this.price = price;
+		this.image = image;
+		this.createdate = createdate;
+		this.stock = stock;
+	}
+
 	public Integer getStock() {
 		return stock;
 	}

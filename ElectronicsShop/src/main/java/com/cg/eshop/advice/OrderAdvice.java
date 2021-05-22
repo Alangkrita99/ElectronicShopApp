@@ -9,7 +9,6 @@ import com.cg.eshop.dto.ErrorMessage;
 import com.cg.eshop.exception.BasketException;
 import com.cg.eshop.exception.CustomerNotFoundException;
 import com.cg.eshop.exception.OrderProductsNotFoundException;
-import com.cg.eshop.exception.ProductNotFoundException;
 
 @RestControllerAdvice
 public class OrderAdvice {

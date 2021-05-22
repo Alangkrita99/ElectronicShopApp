@@ -24,6 +24,27 @@ public class Basket {
 	@ManyToOne()
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id")
 	private ElectronicProductDetails productDetails;
+	
+	
+
+	public Basket() {
+		super();
+	}
+	
+
+	public Basket(Integer basketId, Customer customer, ElectronicProductDetails productDetails) {
+		super();
+		this.basketId = basketId;
+		this.customer = customer;
+		this.productDetails = productDetails;
+	}
+
+	public Basket(Customer customer, ElectronicProductDetails productDetails) {
+		super();
+		this.customer = customer;
+		this.productDetails = productDetails;
+	}
+
 
 	public Integer getBasketId() {
 		return basketId;

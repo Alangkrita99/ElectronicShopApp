@@ -3,8 +3,6 @@ package com.cg.eshop.dto;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.cg.eshop.entity.ElectronicProductDetails;
-
 public class OrderProductRequestDto {
 	private Integer orderId;
 	private LocalDate orderDate;
@@ -18,8 +16,6 @@ public class OrderProductRequestDto {
 	public OrderProductRequestDto() {
 		super();
 	}
-
-
 	public OrderProductRequestDto(Integer orderId, LocalDate orderDate, Double totalCost, String orderStatus,
 			Integer custId, List<Integer> electronicsProductDetails) {
 		super();

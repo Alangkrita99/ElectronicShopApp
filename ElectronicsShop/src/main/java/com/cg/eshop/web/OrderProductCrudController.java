@@ -13,9 +13,11 @@ import com.cg.eshop.dto.OrderProductRequestDto;
 import com.cg.eshop.dto.SuccessMessage;
 import com.cg.eshop.entity.OrderProducts;
 import com.cg.eshop.entity.OrderedProductDetails;
+import com.cg.eshop.exception.BankAccountNotFoundException;
 import com.cg.eshop.exception.BasketException;
 import com.cg.eshop.exception.CustomerNotFoundException;
 import com.cg.eshop.exception.OrderProductsNotFoundException;
+import com.cg.eshop.exception.ProductNotFoundException;
 import com.cg.eshop.service.IOrderedProductService;
 import com.cg.eshop.utils.OrderConstants;
 
@@ -37,6 +39,12 @@ public class OrderProductCrudController {
 	@GetMapping("vieworderdetails/{orderId}")
 	public List<OrderedProductDetails> viewOrderDetails(@PathVariable("orderId") Integer orderId) throws OrderProductsNotFoundException{
 		return orderProductService.displayOrderDetails(orderId);
+		
+	}
+	
+	@GetMapping("cancelorder/{orderId}")
+	public OrderProducts cancelOrder(@PathVariable("orderId") Integer orderId) throws OrderProductsNotFoundException, ProductNotFoundException, BankAccountNotFoundException{
+		return orderProductService.cancelOrder(orderId);
 		
 	}
 	

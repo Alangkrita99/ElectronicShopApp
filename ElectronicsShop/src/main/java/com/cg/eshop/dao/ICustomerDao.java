@@ -8,5 +8,7 @@ import com.cg.eshop.entity.Customer;
 @Repository
 public interface ICustomerDao extends JpaRepository<Customer, Integer>{
 	
+	
+	
 
 }

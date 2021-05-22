@@ -9,21 +9,26 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.eshop.dao.ICartDao;
+import com.cg.eshop.dao.IBankAccountDao;
+import com.cg.eshop.dao.IBasketDao;
 import com.cg.eshop.dao.ICustomerDao;
 import com.cg.eshop.dao.IElectronicProductDetailsDao;
 import com.cg.eshop.dao.IOrderProductsDao;
 import com.cg.eshop.dao.IOrderedProductDetailsDao;
-import com.cg.eshop.dto.OrderProductRequestDto;
+import com.cg.eshop.entity.BankAccount;
 import com.cg.eshop.entity.Basket;
 import com.cg.eshop.entity.Customer;
 import com.cg.eshop.entity.ElectronicProductDetails;
 import com.cg.eshop.entity.OrderProducts;
 import com.cg.eshop.entity.OrderedProductDetails;
+import com.cg.eshop.exception.BankAccountNotFoundException;
 import com.cg.eshop.exception.BasketException;
 import com.cg.eshop.exception.CustomerNotFoundException;
 import com.cg.eshop.exception.OrderProductsNotFoundException;
+import com.cg.eshop.exception.ProductNotFoundException;
 import com.cg.eshop.utils.OrderConstants;
+import com.cg.eshop.utils.PaymentConstants;
+import com.cg.eshop.utils.ProductConstants;
 @Service
 @Transactional
 public class OrderedProductImpl implements IOrderedProductService{
@@ -36,7 +41,9 @@ public class OrderedProductImpl implements IOrderedProductService{
 	@Autowired
 	private IElectronicProductDetailsDao electronicProductDetailsDao;
 	@Autowired
-	private ICartDao cartDao;
+	private IBasketDao cartDao;
+	@Autowired
+	private IBankAccountDao bankAccDao;
 	// Create Order
 	@Override
 	public Integer createOrder(Integer customerId) throws CustomerNotFoundException, BasketException {
@@ -63,6 +70,7 @@ public class OrderedProductImpl implements IOrderedProductService{
 			ElectronicProductDetails product = basket.getProductDetails();
 			OrderedProductDetails orderprodDetail = new OrderedProductDetails();
 			
+			
 			orderprodDetail.setElectronicProduct(product);
 			orderprodDetail.setProdOrders(orderProduct);
 			orderedProductDetailsDao.save(orderprodDetail);
@@ -71,12 +79,11 @@ public class OrderedProductImpl implements IOrderedProductService{
 			cartDao.delete(basket);
 			
 		}
-//		orderProductsDao.save(orderProduct)
-
-
-		return orderProduct.getOrderId();
+		return savedOrder.getOrderId();
 
 	}
+	
+	
 	public double findTotalCost(List<Basket> lstBaskets) {
 		double totalCost=0.0;
 		for(Basket basket : lstBaskets) {
@@ -104,6 +111,8 @@ public class OrderedProductImpl implements IOrderedProductService{
 		return lst;
 	}
 	
+	
+	
 	@Override
 	public List<OrderedProductDetails> displayOrderDetails(Integer orderId) throws OrderProductsNotFoundException {
 		Optional<OrderProducts> optOrder = orderProductsDao.findById(orderId);
@@ -114,6 +123,46 @@ public class OrderedProductImpl implements IOrderedProductService{
 			throw new OrderProductsNotFoundException(OrderConstants.ORDER_EMPTY);
 		orderProdDetails.sort((e1,e2)->e1.getProdOrderId().compareTo(e2.getProdOrderId()));
 		return orderProdDetails;
+	}
+	
+	
+	
+	@Override
+	public OrderProducts cancelOrder(Integer orderId) throws OrderProductsNotFoundException, ProductNotFoundException, BankAccountNotFoundException {
+		
+		Optional<OrderProducts> optDeletedOrder = orderProductsDao.findById(orderId);
+		
+		if(optDeletedOrder.isEmpty())
+			throw new OrderProductsNotFoundException(OrderConstants.ORDER_NOT_FOUND);
+		OrderProducts deletedProduct =optDeletedOrder.get();
+		Integer custId = deletedProduct.getCustomer().getCustomerId();
+		BankAccount bankAcc=bankAccDao.findByCustomer(custId);
+		List<OrderedProductDetails> productDetails = orderedProductDetailsDao.findByProdOrders(deletedProduct);
+		
+		for(OrderedProductDetails prodDetail : productDetails) {
+			// increment the product stock by 1
+			Optional<ElectronicProductDetails> optElectronicProduct = electronicProductDetailsDao.findById(prodDetail.getElectronicProduct().getProductID());
+			if(optElectronicProduct.isEmpty())
+				throw new ProductNotFoundException(ProductConstants.PRODUCT_NOT_FOUND);
+			ElectronicProductDetails electronicProduct = optElectronicProduct.get();
+			refund(bankAcc.getBankId(),electronicProduct.getPrice());
+			electronicProduct.setStock(electronicProduct.getStock()+OrderConstants.INCREMENT_BY_ONE);
+			electronicProductDetailsDao.save(electronicProduct);
+			orderedProductDetailsDao.delete(prodDetail);
+	
+		}
+		orderProductsDao.delete(deletedProduct);
+		return deletedProduct;
+	}
+	
+	public void refund(Integer bankAccId,Double amount) throws BankAccountNotFoundException {
+		Optional<BankAccount> bankAcc= bankAccDao.findById(bankAccId);
+		if(bankAcc.isEmpty())
+			throw new BankAccountNotFoundException(PaymentConstants.BANK_ACCOUNT_NOT_FOUND);
+		BankAccount bankAccount= bankAcc.get();
+		bankAccount.setAmount(bankAccount.getAmount()+amount);
+		bankAccDao.save(bankAccount);
+
 	}
 
 
