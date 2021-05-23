@@ -74,17 +74,5 @@ public class CategoryCrudController {
 			throw new ProductNotFoundException("No Product Found in this Category");
 		return productDetailsLst;
 	}
-	/**
-	 * @return product details
-	 * @throws CategoryNotFoundException, if Category Id not found
-	 * @description This method returns the product details when a new product is added
-	 * @createdAt 18-May-2021 
-	 */
 
-	@PostMapping("addnewproduct")
-	public ElectronicProductDetails viewAllProductsByCategory(@RequestBody AddProductDto addProductDto) throws CategoryNotFoundException {
-		ElectronicProductDetails productDetails= productService.addEletronicProduct(addProductDto);
-		return productDetails;
-	}
-	
 }

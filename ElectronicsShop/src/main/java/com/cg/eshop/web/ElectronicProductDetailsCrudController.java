@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.eshop.dto.AddProductDto;
-import com.cg.eshop.dto.CategoryDto;
 import com.cg.eshop.dto.SuccessMessage;
 import com.cg.eshop.entity.ElectronicProductDetails;
 import com.cg.eshop.exception.CategoryNotFoundException;
@@ -41,8 +40,8 @@ public class ElectronicProductDetailsCrudController {
 	@PostMapping("addproductdetails")
 	public SuccessMessage addProductDetails(@Valid @RequestBody AddProductDto addProductDto) throws CategoryNotFoundException {
 		ElectronicProductDetails elecproduct = electronicProductDetailService.addEletronicProduct(addProductDto);
-		SuccessMessage successMessage=new SuccessMessage("Your Generated Category ID "+ elecproduct.getProductID());
-		return successMessage;
+		
+		return new SuccessMessage("Your Generated Category ID "+ elecproduct.getProductID());
 		
 	}
 }
