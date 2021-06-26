@@ -25,7 +25,7 @@ import com.cg.eshop.service.BasketServiceImpl;
 import com.cg.eshop.service.IBasketService;
 
 @SpringBootTest
-public class TestViewCartItem {
+ class TestViewCartItem {
 
 	@Mock
 	private IBasketDao basketdao;
@@ -53,20 +53,20 @@ public class TestViewCartItem {
 
 	@Test
 	@DisplayName(value = "Test ViewById for 1001")
-	public void testviewbyId1() throws BasketException, CustomerNotFoundException {
+	 void testviewbyId1() throws BasketException, CustomerNotFoundException {
 		assertTrue(basketService.viewItems(1001).size() > 0);
 
 	}
 
 	@Test
 	@DisplayName(value = "Test ViewById for 1004")
-	public void testviewbyId2() throws BasketException, CustomerNotFoundException {
+	 void testviewbyId2() throws BasketException, CustomerNotFoundException {
 		assertThrows(BasketException.class, () -> basketService.viewItems(1004));
 	}
 
 	@Test
 	@DisplayName(value = "Test ViewById for 1002")
-	public void testviewbyId3() throws BasketException, CustomerNotFoundException {
+	 void testviewbyId3() throws BasketException, CustomerNotFoundException {
 		assertThrows(CustomerNotFoundException.class, () -> basketService.viewItems(1002));
 	}
 

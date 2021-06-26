@@ -29,7 +29,7 @@ import com.cg.eshop.service.IPaymentService;
 import com.cg.eshop.service.PaymentServiceImpl;
 
 @SpringBootTest
-public class TestViewTranxByCustId {
+ class TestViewTranxByCustId {
 	@Mock
 	private IOrderProductsDao orderProductsDao;
 	@Mock
@@ -62,20 +62,20 @@ public class TestViewTranxByCustId {
 
 	@Test
 	@DisplayName(value = "test view by customer id for 1001")
-	public void testViewTranxbyCustID1()
+	 void testViewTranxbyCustID1()
 			throws TransactionNotFoundException, CustomerNotFoundException, OrderProductsNotFoundException {
-		assertTrue(service.viewPaymentbyCustID(1001).size() > 0);
+		assertTrue(service.getPaymentbyCustID(1001).size() > 0);
 	}
 
 	@Test
 	@DisplayName(value = "test view by customer id for 1002")
-	public void testViewTranxbyCustID2() throws TransactionNotFoundException, CustomerNotFoundException {
-		assertThrows(CustomerNotFoundException.class, () -> service.viewPaymentbyCustID(1003));
+	 void testViewTranxbyCustID2() throws TransactionNotFoundException, CustomerNotFoundException {
+		assertThrows(CustomerNotFoundException.class, () -> service.getPaymentbyCustID(1003));
 	}
 
 	@Test
 	@DisplayName(value = "test view by customer id for 1002")
-	public void testViewTranxbyCustID3() throws TransactionNotFoundException, CustomerNotFoundException {
-		assertThrows(TransactionNotFoundException.class, () -> service.viewPaymentbyCustID(1002));
+	 void testViewTranxbyCustID3() throws TransactionNotFoundException, CustomerNotFoundException {
+		assertThrows(TransactionNotFoundException.class, () -> service.getPaymentbyCustID(1002));
 	}
 }

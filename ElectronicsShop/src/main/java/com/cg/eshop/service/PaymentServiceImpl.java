@@ -53,12 +53,10 @@ public class PaymentServiceImpl implements IPaymentService {
 	 * @createdAt 15-May-2021
 	 */
 	@Override
-	public BankTransaction viewPayment(Integer trnxID) throws TransactionNotFoundException {
-		Optional<BankTransaction> optemp = btnxdao.findById(trnxID);
-		if (!optemp.isPresent()) {
-			throw new TransactionNotFoundException(PaymentConstants.BANK_TRANSACTION_NOT_FOUND + trnxID);
-		}
-		return optemp.get();
+	public BankTransaction getPayment(Integer trnxID) throws TransactionNotFoundException {
+
+		return btnxdao.findById(trnxID).orElseThrow(
+				() -> new TransactionNotFoundException(PaymentConstants.BANK_TRANSACTION_NOT_FOUND + trnxID));
 	}
 
 	/**
@@ -72,7 +70,7 @@ public class PaymentServiceImpl implements IPaymentService {
 	 * @createdAt 16-May-2021
 	 */
 	@Override
-	public List<BankTransaction> viewPaymentbyCustID(Integer custId)
+	public List<BankTransaction> getPaymentbyCustID(Integer custId)
 			throws TransactionNotFoundException, CustomerNotFoundException {
 		Optional<Customer> optCust = customerDao.findById(custId);
 		if (!optCust.isPresent())
@@ -124,12 +122,12 @@ public class PaymentServiceImpl implements IPaymentService {
 		newtransaction.setOrderproducts(orderproduct);
 
 		bankacc.setAmount(bankacc.getAmount() - orderproduct.getTotalCost());
-		
+
 		orderproduct.setOrderStatus("paid");
 
 		OrderProducts saveorderpro = orderProductsDao.save(orderproduct);
 		newtransaction.setOrderproducts(saveorderpro);
-		
+
 		BankAccount savebankacc = bankaccdao.save(bankacc);
 		newtransaction.setBankAcc(savebankacc);
 

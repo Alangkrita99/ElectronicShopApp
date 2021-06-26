@@ -49,9 +49,8 @@ public class CategoryServiceImpl implements ICategoryService {
 
 	@Override
 	public List<Category> viewAllCategory() {
-		List<Category> categoryList = categoryDao.findAll();
 
-		return categoryList;
+		return categoryDao.findAll();
 	}
 
 	/**

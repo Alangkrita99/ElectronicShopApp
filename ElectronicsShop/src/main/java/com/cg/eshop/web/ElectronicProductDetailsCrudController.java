@@ -8,6 +8,7 @@ package com.cg.eshop.web;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import com.cg.eshop.exception.CategoryNotFoundException;
 import com.cg.eshop.exception.ProductNotFoundException;
 import com.cg.eshop.service.IElectronicProductDetailService;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class ElectronicProductDetailsCrudController {
 	@Autowired

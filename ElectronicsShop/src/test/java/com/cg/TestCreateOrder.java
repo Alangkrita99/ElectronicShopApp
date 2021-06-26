@@ -31,7 +31,7 @@ import com.cg.eshop.service.IOrderedProductService;
 import com.cg.eshop.service.OrderedProductImpl;
 
 @SpringBootTest
-public class TestCreateOrder {
+ class TestCreateOrder {
 	@Mock
 	private ICustomerDao customerDao; 
 	@Mock
@@ -67,7 +67,7 @@ public class TestCreateOrder {
 	
 	@Test
 	@DisplayName(value = "test of Create Order positive")
-	public void testCreateOrder1() throws CustomerNotFoundException, BasketException {
+	 void testCreateOrder1() throws CustomerNotFoundException, BasketException {
 		System.out.println(orderProductService.createOrder(1001));
 		assertTrue(orderProductService.createOrder(1001)==100);
 		
@@ -76,14 +76,14 @@ public class TestCreateOrder {
 	// customer Not found exception
 	@Test
 	@DisplayName(value = "test of Create Order for customer not found")
-	public void testCreateOrder2() {
+	 void testCreateOrder2() {
 		assertThrows(CustomerNotFoundException.class, ()->orderProductService.createOrder(1002));
 	}
 	
 	// Basket exception
 		@Test
 		@DisplayName(value = "test of Create Order for Basket Exception")
-		public void testCreateOrder3() {
+		 void testCreateOrder3() {
 			assertThrows(BasketException.class, ()->orderProductService.createOrder(1006));
 		}
 

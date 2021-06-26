@@ -31,7 +31,7 @@ import com.cg.eshop.service.IPaymentService;
 import com.cg.eshop.service.PaymentServiceImpl;
 
 @SpringBootTest
-public class TestMakePayment {
+ class TestMakePayment {
 	@Mock
 	private IOrderProductsDao orderProductsDao;
 	@Mock
@@ -61,31 +61,31 @@ public class TestMakePayment {
 	}
 	@Test
 	@DisplayName(value = "test for making payment success")
-	public void testMakePayment1 () throws OrderProductsNotFoundException, BankAccountNotFoundException, BankDetailsDidntMatchException, NotSufficientBalanceException {
+	 void testMakePayment1 () throws OrderProductsNotFoundException, BankAccountNotFoundException, BankDetailsDidntMatchException, NotSufficientBalanceException {
 		PaymentReqDto paydto = new PaymentReqDto(1, 123, LocalDate.of(2022, 10, 10), "riju", 123);
 		assertNotNull(service.makePayment(paydto));
 	}
 	@Test
 	@DisplayName(value = "test for making payment order not found")
-	public void testMakePayment2 () throws OrderProductsNotFoundException, BankAccountNotFoundException, BankDetailsDidntMatchException, NotSufficientBalanceException {
+	 void testMakePayment2 () throws OrderProductsNotFoundException, BankAccountNotFoundException, BankDetailsDidntMatchException, NotSufficientBalanceException {
 		PaymentReqDto paydto = new PaymentReqDto(2, 123, LocalDate.of(2022, 10, 10), "riju", 123);
 		assertThrows(OrderProductsNotFoundException.class, ()->service.makePayment(paydto));
 	}
 	@Test
 	@DisplayName(value = "test for making payment Bank account not found")
-	public void testMakePayment3 () throws OrderProductsNotFoundException, BankAccountNotFoundException, BankDetailsDidntMatchException, NotSufficientBalanceException {
+	 void testMakePayment3 () throws OrderProductsNotFoundException, BankAccountNotFoundException, BankDetailsDidntMatchException, NotSufficientBalanceException {
 		PaymentReqDto paydto = new PaymentReqDto(1, 123, LocalDate.of(2022, 10, 10), "riju", 100);
 		assertThrows(BankAccountNotFoundException.class ,()->service.makePayment(paydto));
 	}
 	@Test
 	@DisplayName(value = "test for making payment Bank details did not match")
-	public void testMakePayment4 () throws OrderProductsNotFoundException, BankAccountNotFoundException, BankDetailsDidntMatchException, NotSufficientBalanceException {
+	 void testMakePayment4 () throws OrderProductsNotFoundException, BankAccountNotFoundException, BankDetailsDidntMatchException, NotSufficientBalanceException {
 		PaymentReqDto paydto = new PaymentReqDto(1, 120, LocalDate.of(2022, 10, 10), "riju", 123);
 		assertThrows(BankDetailsDidntMatchException.class ,()->service.makePayment(paydto));
 	}
 	@Test
 	@DisplayName(value = "test for making payment not sufficient balance")
-	public void testMakePayment5 () throws OrderProductsNotFoundException, BankAccountNotFoundException, BankDetailsDidntMatchException, NotSufficientBalanceException {
+	 void testMakePayment5 () throws OrderProductsNotFoundException, BankAccountNotFoundException, BankDetailsDidntMatchException, NotSufficientBalanceException {
 		PaymentReqDto paydto = new PaymentReqDto(3, 123, LocalDate.of(2022, 10, 10), "riju", 123);
 		assertThrows(NotSufficientBalanceException.class ,()->service.makePayment(paydto));
 	}

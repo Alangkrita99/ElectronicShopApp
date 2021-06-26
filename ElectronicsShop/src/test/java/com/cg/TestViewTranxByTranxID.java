@@ -20,7 +20,7 @@ import com.cg.eshop.service.IPaymentService;
 import com.cg.eshop.service.PaymentServiceImpl;
 
 @SpringBootTest
-public class TestViewTranxByTranxID {
+ class TestViewTranxByTranxID {
 	@Mock
 	private IBankTranxDao banktranxdao;
 	
@@ -37,13 +37,13 @@ public class TestViewTranxByTranxID {
 	
 	@Test
 	@DisplayName(value = "test view transaction by transaction ID 1")
-	public void testbytranxID() throws TransactionNotFoundException{
-		assertNotNull(service.viewPayment(1));
+	void testbytranxID() throws TransactionNotFoundException{
+		assertNotNull(service.getPayment(1));
 	}
 
 	@Test
 	@DisplayName(value = "test view transaction by transaction ID 2")
-	public void testbytranxID2() throws TransactionNotFoundException{
-		assertThrows(TransactionNotFoundException.class,()-> service.viewPayment(2));
+	 void testbytranxID2() throws TransactionNotFoundException{
+		assertThrows(TransactionNotFoundException.class,()-> service.getPayment(2));
 	}
 }
