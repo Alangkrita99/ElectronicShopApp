@@ -39,7 +39,7 @@ import com.cg.eshop.service.ICategoryService;
 	@Test
 	@DisplayName(value = "test for view all category")
 	 void test1() throws CategoryNotFoundException {
-		assertTrue(catservice.viewAllCategory().size()>0);
+		assertTrue(catservice.getAllCategory().size()>0);
 	}
 }
 

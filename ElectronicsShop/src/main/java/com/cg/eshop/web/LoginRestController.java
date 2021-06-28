@@ -42,8 +42,8 @@ public class LoginRestController {
 	@PostMapping("login")
 	public LoginResponse doLoginController(@Valid @RequestBody LoginDto logindto, BindingResult br) throws LoginException, ValidateUserException
 	{
-		if(!service.getAuthMap().isEmpty())
-			throw new LoginException(LoginConstants.ALREADY_LOGGED_IN);
+//		if(!service.getAuthMap().isEmpty())
+//			throw new LoginException(LoginConstants.ALREADY_LOGGED_IN);
 		if(br.hasErrors())
 			throw new ValidateUserException(br.getFieldErrors());
 		Login login=service.doLogin(logindto.getUserId(), logindto.getPassword());

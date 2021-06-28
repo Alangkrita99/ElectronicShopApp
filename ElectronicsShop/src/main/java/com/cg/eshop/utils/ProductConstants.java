@@ -8,5 +8,5 @@ public class ProductConstants {
 	public static final String SPEC_NAME_REQUIRE = "Specification Name required ";
 	public static final String SPEC_VALUE_REQUIRE = "Specification Value required ";
 	public static final String SPEC_EDIT_SUCCESSFUL = "Specification Edited Successfully ";
-
+	public static final String ADD_SUCCESS = "Your Generated Category ID ";
 }

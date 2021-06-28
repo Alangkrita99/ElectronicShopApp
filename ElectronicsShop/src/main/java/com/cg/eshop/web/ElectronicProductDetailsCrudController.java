@@ -21,6 +21,7 @@ import com.cg.eshop.entity.ElectronicProductDetails;
 import com.cg.eshop.exception.CategoryNotFoundException;
 import com.cg.eshop.exception.ProductNotFoundException;
 import com.cg.eshop.service.IElectronicProductDetailService;
+import com.cg.eshop.utils.ProductConstants;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -43,7 +44,7 @@ public class ElectronicProductDetailsCrudController {
 	public SuccessMessage addProductDetails(@Valid @RequestBody AddProductDto addProductDto) throws CategoryNotFoundException {
 		ElectronicProductDetails elecproduct = electronicProductDetailService.addEletronicProduct(addProductDto);
 		
-		return new SuccessMessage("Your Generated Category ID "+ elecproduct.getProductID());
+		return new SuccessMessage(ProductConstants.ADD_SUCCESS+ elecproduct.getProductID());
 		
 	}
 }

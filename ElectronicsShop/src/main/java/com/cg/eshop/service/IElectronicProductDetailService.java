@@ -12,8 +12,4 @@ public interface IElectronicProductDetailService {
 	public ElectronicProductDetails addEletronicProduct(AddProductDto addProductDto) throws CategoryNotFoundException;
 
 	public ElectronicProductDetails getProductDetailsByProductId(Integer productId) throws ProductNotFoundException;
-
-	public List<ElectronicProductDetails> getProductDetailsByCategoryName(String categoryName) throws ProductNotFoundException;
-
-	
 }

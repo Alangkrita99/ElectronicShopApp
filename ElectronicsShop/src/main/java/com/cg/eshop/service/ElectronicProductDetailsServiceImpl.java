@@ -70,10 +70,5 @@ public class ElectronicProductDetailsServiceImpl implements IElectronicProductDe
 		return optProdDetails.get();
 	}
 
-	@Override
-	public List<ElectronicProductDetails> getProductDetailsByCategoryName(String categoryName)
-			throws ProductNotFoundException {
-		return null;
-	}
 
 }

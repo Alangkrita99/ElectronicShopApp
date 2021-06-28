@@ -25,6 +25,7 @@ import com.cg.eshop.exception.CategoryNameNotFoundException;
 import com.cg.eshop.exception.CategoryNotFoundException;
 import com.cg.eshop.exception.ProductNotFoundException;
 import com.cg.eshop.service.ICategoryService;
+import com.cg.eshop.utils.CategoryConstants;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -40,7 +41,7 @@ public class CategoryCrudController {
 	@PostMapping("addcategory")
 	public SuccessMessage addCategory(@Valid @RequestBody CategoryDto categoryDto) {
 		Integer categoryId= categoryService.addCategory(categoryDto);
-		return new SuccessMessage("Your Generated Category ID "+ categoryId);
+		return new SuccessMessage(CategoryConstants.SUCESS_MESSAGE+ categoryId);
 		
 	}
 	/**
@@ -51,9 +52,9 @@ public class CategoryCrudController {
 	 */
 	@GetMapping("viewallcategory")
 	public List<Category> viewAllCategory() throws CategoryNotFoundException {
-		List<Category> categoryLst= categoryService.viewAllCategory();
+		List<Category> categoryLst= categoryService.getAllCategory();
 		if(categoryLst.isEmpty())
-			throw new CategoryNotFoundException("The Category Table Is Empty");
+			throw new CategoryNotFoundException(CategoryConstants.CATEGORY_NOT_FOUND);
 		return categoryLst;
 	}
 	/**
@@ -68,7 +69,7 @@ public class CategoryCrudController {
 	public List<ElectronicProductDetails> viewAllProductsByCategory(@PathVariable("categoryName")String categoryName) throws ProductNotFoundException, CategoryNameNotFoundException {
 		List<ElectronicProductDetails> productDetailsLst= categoryService.getProductDetailsByCategoryName(categoryName);
 		if(productDetailsLst.isEmpty())
-			throw new ProductNotFoundException("No Product Found in this Category");
+			throw new ProductNotFoundException(CategoryConstants.PRODUCT_NOT_FOUND_FOR_CATEGORY);
 		return productDetailsLst;
 	}
 
