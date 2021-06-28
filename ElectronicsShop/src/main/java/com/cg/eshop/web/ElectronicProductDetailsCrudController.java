@@ -8,6 +8,7 @@ package com.cg.eshop.web;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,9 @@ import com.cg.eshop.entity.ElectronicProductDetails;
 import com.cg.eshop.exception.CategoryNotFoundException;
 import com.cg.eshop.exception.ProductNotFoundException;
 import com.cg.eshop.service.IElectronicProductDetailService;
+import com.cg.eshop.utils.ProductConstants;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class ElectronicProductDetailsCrudController {
 	@Autowired
@@ -41,7 +44,7 @@ public class ElectronicProductDetailsCrudController {
 	public SuccessMessage addProductDetails(@Valid @RequestBody AddProductDto addProductDto) throws CategoryNotFoundException {
 		ElectronicProductDetails elecproduct = electronicProductDetailService.addEletronicProduct(addProductDto);
 		
-		return new SuccessMessage("Your Generated Category ID "+ elecproduct.getProductID());
+		return new SuccessMessage(ProductConstants.ADD_SUCCESS+ elecproduct.getProductID());
 		
 	}
 }

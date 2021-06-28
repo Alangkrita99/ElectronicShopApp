@@ -26,7 +26,7 @@ import com.cg.eshop.service.IOrderedProductService;
 import com.cg.eshop.service.OrderedProductImpl;
 
 @SpringBootTest
-public class TestViewOrderByUserId {
+ class TestViewOrderByUserId {
 	@Mock
 	private ICustomerDao customerDao; 
 	@Mock
@@ -52,19 +52,19 @@ public class TestViewOrderByUserId {
 	
 	@Test
 	@DisplayName(value ="test for view order for customerId 1001")
-	public void testViewOrder1() throws OrderProductsNotFoundException, CustomerNotFoundException{
+	 void testViewOrder1() throws OrderProductsNotFoundException, CustomerNotFoundException{
 		assertTrue(orderProductService.viewOrderByUserId(1001).size()>0);
 	}
 	
 	@Test
 	@DisplayName(value = "test for view order for customerId 1003")
-	public void testViewOrder2() throws OrderProductsNotFoundException, CustomerNotFoundException{
+	 void testViewOrder2() throws OrderProductsNotFoundException, CustomerNotFoundException{
 		assertThrows(CustomerNotFoundException.class, ()->orderProductService.viewOrderByUserId(1003));
 	}
 	
 	@Test
 	@DisplayName(value = "test for view order for customerId 1004")
-	public void testViewOrder3() throws OrderProductsNotFoundException, CustomerNotFoundException{
+	 void testViewOrder3() throws OrderProductsNotFoundException, CustomerNotFoundException{
 		assertThrows(OrderProductsNotFoundException.class, ()->orderProductService.viewOrderByUserId(1004));
 	}
 	

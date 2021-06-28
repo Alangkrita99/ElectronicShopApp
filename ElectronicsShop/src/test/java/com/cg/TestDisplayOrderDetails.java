@@ -29,7 +29,7 @@ import com.cg.eshop.service.IOrderedProductService;
 import com.cg.eshop.service.OrderedProductImpl;
 
 @SpringBootTest
-public class TestDisplayOrderDetails {
+ class TestDisplayOrderDetails {
 	
 	@Mock
 	private ICustomerDao customerDao; 
@@ -57,13 +57,13 @@ public class TestDisplayOrderDetails {
 	}
 	@Test
 	@DisplayName(value ="test for display order details for orderId 11")
-	public void testdisplayOrderDetails1() throws OrderProductsNotFoundException{
+	 void testdisplayOrderDetails1() throws OrderProductsNotFoundException{
 		assertTrue(orderProductService.displayOrderDetails(11).size()>0);
 	}
 	
 	@Test
 	@DisplayName(value ="test for display order details for orderId 12")
-	public void testdisplayOrderDetails2() throws OrderProductsNotFoundException{
+	 void testdisplayOrderDetails2() throws OrderProductsNotFoundException{
 //		assertTrue(orderProductService.displayOrderDetails(12).size()>0);
 		assertThrows(OrderProductsNotFoundException.class, ()->orderProductService.displayOrderDetails(12));
 		

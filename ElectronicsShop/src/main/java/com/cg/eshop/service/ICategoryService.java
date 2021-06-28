@@ -11,7 +11,7 @@ import com.cg.eshop.exception.ProductNotFoundException;
 public interface ICategoryService {
 	public Integer addCategory(CategoryDto categorydto);
 
-	public List<Category> viewAllCategory() throws CategoryNotFoundException;
+	public List<Category> getAllCategory() throws CategoryNotFoundException;
 
 	public List<ElectronicProductDetails> getProductDetailsByCategoryName(String categoryName)
 			throws ProductNotFoundException;

@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +45,7 @@ public class PaymentCrudController {
 	 * @description This method returns a success message 
 	 * @createdAt 16-May-2021
 	 */
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("makepayment")
 	public SuccessMessage makePaymentTranx(@Valid @RequestBody PaymentReqDto paymentreq, BindingResult br) throws OrderProductsNotFoundException, BankAccountNotFoundException, BankDetailsDidntMatchException, NotSufficientBalanceException, ValidateException{
 		if (br.hasErrors())
@@ -62,9 +64,10 @@ public class PaymentCrudController {
 	 * @description This method returns a list of transaction for a customer Id
 	 * @createdAt 16-May-2021
 	 */
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("viewpaymentbycustid/{custid}")
 	public List<BankTransaction> viewPaymentbyCustID(@PathVariable("custid") Integer custId) throws CustomerNotFoundException, TransactionNotFoundException{
-		return paymentservice.viewPaymentbyCustID(custId);
+		return paymentservice.getPaymentbyCustID(custId);
 	}
 
 	/**
@@ -75,8 +78,9 @@ public class PaymentCrudController {
 	 * @description This method returns a list of transaction for a transaction Id
 	 * @createdAt 15-May-2021
 	 */
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("viewpayment/{trnxid}")
 	public BankTransaction viewPayment(@PathVariable("trnxid")Integer trnxID) throws TransactionNotFoundException{
-		return paymentservice.viewPayment(trnxID);
+		return paymentservice.getPayment(trnxID);
 	}
 }
